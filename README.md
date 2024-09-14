@@ -2,4 +2,4 @@
 ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_02_sketch_boxton_move/how/boxton_move.gif?raw=true)
 ---------------------------------------
 2. sketch_imgKonfetolapka_topStop
-![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_imgKonfetolapka_topStop/how/konfetolapkaTopStop.png?raw=true)
+![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_imgKonfetolapka_topStop/konfMove.gif?raw=true)
