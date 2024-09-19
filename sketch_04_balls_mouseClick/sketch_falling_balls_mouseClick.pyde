@@ -19,8 +19,7 @@ def mousePressed():
            rectList.remove(item) 
            collected +=1 
               
-def drawCoin():
-    
+def drawCoin(): 
     for item in rectList:  
         fill(0,255,0) 
         ellipse(item["x"], item["y"], 20, 20)  
@@ -31,11 +30,4 @@ def draw():
   
   textSize(20) 
   fill(0) 
-  text(collected,370,40)
-  
-   
-  
- 
-   
-  
-   
+  text(collected,370,40)   
