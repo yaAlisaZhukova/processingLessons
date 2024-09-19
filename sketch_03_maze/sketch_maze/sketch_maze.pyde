@@ -22,14 +22,6 @@ circlePositionY = 1
 def setup():
     size(640,640)   
 
-def draw():
-    background(120)
-    renderMap()  
-    circleX =  (circlePositionX + 1) * cellWidth - cellWidth/2
-    circleY =  (circlePositionY + 1) * cellHeight - cellHeight/2
-    fill(255,0,0)
-    circle(circleX,circleY,64)
-
 def renderMap(): 
     for j in range(0, len(tilemap)):
         for i in range(0, len(tilemap[0])):
@@ -38,8 +30,7 @@ def renderMap():
                 rect(i*cellWidth, j*cellHeight, cellWidth, cellHeight)
             elif tilemap[j][i] == 1:
                 fill(157, 219, 208)
-                rect(i*cellWidth, j*cellHeight, cellWidth, cellHeight)  
- 
+                rect(i*cellWidth, j*cellHeight, cellWidth, cellHeight)   
 
 def keyPressed(): 
   global circlePositionX   
@@ -60,6 +51,20 @@ def keyPressed():
   elif (keyCode == 40): 
     print "down" 
     if tilemap[circlePositionY+1][circlePositionX] == 0:
-        circlePositionY += 1  
+        circlePositionY += 1
+        
+def drawPlayer():
+    circleX = (circlePositionX + 1) * cellWidth - cellWidth/2
+    circleY = (circlePositionY + 1) * cellHeight - cellHeight/2
+    fill(255,0,0)
+    circle(circleX,circleY,64) 
+          
+def draw():
+    background(120)
+    renderMap()
+    drawPlayer()  
+    
+
+  
 
  
