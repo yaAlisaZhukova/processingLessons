@@ -30,28 +30,24 @@ def renderMap():
                 rect(i*cellWidth, j*cellHeight, cellWidth, cellHeight)
             elif tilemap[j][i] == 1:
                 fill(157, 219, 208)
-                rect(i*cellWidth, j*cellHeight, cellWidth, cellHeight)   
-
+                rect(i*cellWidth, j*cellHeight, cellWidth, cellHeight)
+                   
 def keyPressed(): 
-  global circlePositionX   
-  global circlePositionY 
-  
-  if(keyCode==37):
-    print "left"
-    if tilemap[circlePositionY][circlePositionX-1] == 0:
-        circlePositionX -= 1 
-  elif (keyCode == 38):
-    print "up"
-    if tilemap[circlePositionY-1][circlePositionX] == 0:
-        circlePositionY -= 1
-  elif (keyCode == 39):
-    print "right"  
-    if tilemap[circlePositionY][circlePositionX+1] == 0:
-        circlePositionX += 1  
-  elif (keyCode == 40): 
-    print "down" 
-    if tilemap[circlePositionY+1][circlePositionX] == 0:
-        circlePositionY += 1
+    global circlePositionX   
+    global circlePositionY 
+    if key == CODED: 
+        if (keyCode == LEFT ):
+            if tilemap[circlePositionY][circlePositionX-1] == 0:
+                circlePositionX -= 1 
+        elif keyCode == UP:
+            if tilemap[circlePositionY-1][circlePositionX] == 0:
+                circlePositionY -= 1
+        elif keyCode == RIGHT:
+            if tilemap[circlePositionY][circlePositionX+1] == 0:
+                circlePositionX += 1  
+        elif keyCode == DOWN:
+            if tilemap[circlePositionY+1][circlePositionX] == 0:
+                circlePositionY += 1 
         
 def drawPlayer():
     circleX = (circlePositionX + 1) * cellWidth - cellWidth/2
