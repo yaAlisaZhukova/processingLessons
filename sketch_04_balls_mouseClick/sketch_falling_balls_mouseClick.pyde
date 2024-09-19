@@ -9,8 +9,7 @@ def chooseRandomXYPosition():
     global rectList 
     for i in range(0, 5): 
         paramDictionary = {"x": int(random(0, width)), "y" : int(random(0,height))} 
-        rectList.append(paramDictionary) 
-     
+        rectList.append(paramDictionary)  
         
 def mousePressed():  
     global collected
@@ -21,12 +20,13 @@ def mousePressed():
            collected +=1 
               
 def drawCoin():
-    background(200) 
+    
     for item in rectList:  
         fill(0,255,0) 
         ellipse(item["x"], item["y"], 20, 20)  
   
-def draw():  
+def draw(): 
+  background(200)  
   drawCoin() 
   
   textSize(20) 
