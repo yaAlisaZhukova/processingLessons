@@ -7,3 +7,5 @@
 ---------------------------------------
 3. sketch_03_maze
 ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_03_maze/how/maze.png?raw=true)
+---------------------------------------
+3. sketch_04_balls_mouseClick
