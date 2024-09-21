@@ -202,7 +202,7 @@ def draw():
                                                      Lesson 3
 ***********************************************************************************************************************
 
-![alt text](https://github.com/Elenn/processing_python/blob/main/03_Lesson/How/ball_x_y_back_forth.gif?raw=true)
+![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/How/ball_x_y_back_forth.gif?raw=true) 
 
 0. Задание: Создай/модифицируй програмку, что бы шарик отскакивал от прямоугольника внизу,
 а не от нижнего края.
