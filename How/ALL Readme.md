@@ -822,6 +822,7 @@ def draw():
 каждый раз от 0 до 63 
 -(то есть x принимает последовательно значения 0, 1, 2, 3 . . .63)
 - circle(x*10, 180, 10) - позиция x умножается на 10, на ширину круга, что бы они не перекрывались
+
 ```
 def setup():
    size(640, 360) 
@@ -834,7 +835,49 @@ def draw():
        circle(x*10, 180, 10)
 ```	   
 ----------------------------
-2. - for loop, range, increment by 10
+2. Рисуем вертикальные линии 
+
+```
+boxSize = 20
+def setup(): 
+    size(640, 320)  
+     
+def draw():  
+    for i in range(0, width/boxSize):
+      line(i*boxSize, 0, i*boxSize, height)
+``` 
+----------------------------
+3. Рисуем горизонтальные линии 
+
+```
+boxSize = 20
+def setup(): 
+    size(640, 320)  
+     
+def draw():  
+	for i in range(0, height/boxSize):
+      line(0, i*boxSize, width, i*boxSize, )
+```
+ 
+----------------------------
+4. Рисуем вертикальные и горизонтальные линии 
+
+```
+boxSize = 20
+def setup(): 
+    size(640, 320)  
+     
+def draw():  
+    for i in range(0, width/boxSize):
+      line(i*boxSize, 0, i*boxSize, height)
+	  
+	for i in range(0, height/boxSize):
+      line(0, i*boxSize, width, i*boxSize, )
+```
+
+
+-----------------------------
+5. - for loop, range, increment by 10
 - вызываем исполнения кода внутри for 
 каждый раз от 0 до 639 с шагом 10
 -(то есть x принимает последовательно значения 0, 10, 20, 30 . . .630)
@@ -852,7 +895,7 @@ def draw():
        circle(x, 180, 10)
 ```	 
 -------------------------------------
-3. - Вложенные циклы: Nested for loops;
+6. - Вложенные циклы: Nested for loops;
 - noLoop() - вызываем метод draw() только одина раз 
 - то есть мы повторяем созданную нами строчку из кругов еще и по высоте (y) 
 - ellipseMode(CORNER): круг, это часный случай элипса, когда ширина равна высоте,
