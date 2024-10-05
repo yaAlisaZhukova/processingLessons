@@ -15,3 +15,7 @@
     
 ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_04_balls_mouseClick/how/ball_list_mouseClick.gif?raw=true)
 ---------------------------------------
+5. sketch_05_Infinitive_move
+    
+![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_05_Infinitive_move/how/longmove.gif?raw=true)
+---------------------------------------

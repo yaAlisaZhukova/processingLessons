@@ -1025,7 +1025,7 @@ def setup():
     
 def mouseClicked():
     global clrcleX
-    if(len(clrcleX)> 0): 
+    if(len(clrcleX) > 0): 
         clrcleX.remove(clrcleX[0])
         print(clrcleX)    
     
