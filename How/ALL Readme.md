@@ -55,9 +55,7 @@ def draw():
   noStroke()
   fill(255, 100, 200)
   circle(320, 180, 100)
-```
-
-
+``` 
 ------------------------------------------
 5. Ты можешь рисовать и другие фигуры
 https://processing.org/reference  
@@ -857,8 +855,7 @@ def setup():
 def draw():  
 	for i in range(0, height/boxSize):
       line(0, i*boxSize, width, i*boxSize, )
-```
- 
+``` 
 ----------------------------
 4. Рисуем вертикальные и горизонтальные линии 
 
@@ -873,9 +870,7 @@ def draw():
 	  
 	for i in range(0, height/boxSize):
       line(0, i*boxSize, width, i*boxSize, )
-```
-
-
+``` 
 -----------------------------
 5. - for loop, range, increment by 10
 - вызываем исполнения кода внутри for 
@@ -963,6 +958,7 @@ def draw():
     for x in clrcleX:
         fill(255,0,0)
         circle(x,150,50)
+```		
 ---------------------------------------------------------- 
 3. Рисуем несколько кругов в случайном месте канвы по x из List
 ```
@@ -979,8 +975,26 @@ def draw():
         fill(255,0,0)
         circle(x,y,30)
 ```	
+---------------------------------------------------------- 
+4. List append. Добавляем круг по нажатию мышки.
+```
+clrcleX = [30, 150, 480]
+def setup():
+    size(600, 600)
+    
+def mouseClicked():
+    global clrcleX 
+    clrcleX.append(random(20, 630))    
+    
+def draw():
+    y = 0  
+    for x in clrcleX:
+        y += 50 
+        fill(255,0,0)
+        circle(x,y,30)
+```	
 -------------------------------------------------------------	
-4. List append.
+5. List append.
 Рисуем несколько кругов в случайном месте канвы по x из List
 ```
 clrcleXList = []
@@ -998,7 +1012,30 @@ def draw():
         circle(x,y,30)
 ```	
 ------------------------------------------------------------------
-5. List of Dictionary. Рисуем несколько кругов в случайном месте канвы по x из List
+6. List remove. len
+Удаляем круки при нажатии на мышку.
+
+```
+clrcleX = [30, 150, 480]
+def setup():
+    size(600, 600)
+    
+def mouseClicked():
+    global clrcleX
+    if(len(clrcleX)> 0): 
+        clrcleX.remove(clrcleX[0])
+        print(clrcleX)    
+    
+def draw():
+    background(155)
+    y = 0  
+    for x in clrcleX:
+        y += 50 
+        fill(255,0,0)
+        circle(x,y,30)
+```
+------------------------------------------------------------------
+7. List of Dictionary. Рисуем несколько кругов в случайном месте канвы по x из List
 ```
 clrcleParamList = []
 def setup():
@@ -1017,7 +1054,7 @@ def draw():
         circle(param["x"],y,30)
 ```
 -----------------------------------------------------------
-6. Показываем содержимое листа(списка) в виде графика
+8. Показываем содержимое листа(списка) в виде графика
 ```
 def setup():
   textSize(18) 
