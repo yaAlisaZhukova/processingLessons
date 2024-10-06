@@ -19,3 +19,7 @@
     
 ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_05_Infinitive_move/how/longmove.gif?raw=true)
 ---------------------------------------
+6. sketch_06_infinitive_move_ship
+    
+![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_06_infinitive_move_ship/how/ship_move.gif?raw=true)
+---------------------------------------
