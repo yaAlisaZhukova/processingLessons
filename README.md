@@ -23,3 +23,9 @@
     
 ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_06_infinitive_move_ship/how/ship_move.gif?raw=true)
 ---------------------------------------
+7. sketch_07_simplesr_shooter
+    
+ ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_07_simplesr_shooter/how/shooter.gif?raw=true) 
+---------------------------------------
+
+

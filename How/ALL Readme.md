@@ -923,6 +923,7 @@ def draw():
 
 ![alt text](https://github.com/Elenn/processing_python/blob/main/06_Lesson/how/listShow.png?raw=true)
 
+
 0. - Задача: Есть лист(список), который содержит положительные и отрицательные целые значения
 ```
 myList = [3, -9, 8, 54, -1, 2]
@@ -1061,6 +1062,34 @@ def draw():
      text(value, 35, y + 6)    
      line(70, y, value*10 + 70, y)
      y =  y + 30 
+```
+--------------------------------------------------
+9. Простейшая стрелялка. Нажимаем на клавишу пробел.
+```
+bullets = []
+gunX = 280
+gunY = 570
+bullet_speed = 5
+
+def setup():
+    size(600, 600) 
+    
+def gun():
+    fill(255, 154, 165)
+    rect(gunX, gunY, 60, 20)
+        
+def keyPressed():
+    global bullets
+    if key == ' ': 
+        bullets.append([gunY - 10])
+       
+def draw():
+    background(134)
+    gun()
+    for bullet in bullets: 
+        bullet[0] = bullet[0] - bullet_speed 
+        circle(gunX + 30, bullet[0], 20)
+        
 ```
 **************************************************************************************************************************************************
                                                     Lesson 7
