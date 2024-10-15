@@ -27,5 +27,8 @@
     
  ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_07_simplest_shooter/how/shooter.gif?raw=true) 
 ---------------------------------------
-
+8. sketch_08_draw_lines
+    
+ ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_08_draw_lines/how/drawLinesshooter.gif?raw=true) 
+---------------------------------------
 

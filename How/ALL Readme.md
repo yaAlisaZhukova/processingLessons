@@ -21,7 +21,23 @@ processing-4.3-windows-x64.zip
 
 Java -> Manage Models -> Python
 -> Python Mode for Processing 4 -> Install
+---------------------------------------
+1.1
+Если переходите с processing-4.3
+на processing-3.5.4
 
+-
+https://processing.org/releases
+-> Version 3.5.4 
+-> Windows 64-bit
+
+- распакуйте zip processing-3.5.4-windows64.zip
+
+- удалите Python Mode for Processing 4 - папку 
+C:\Users\<userName>\Documents\Processing
+
+- Java -> Add Models  
+-> Python Mode for Processing 3 -> Install 
 --------------------------------------
 2. Раню первый скрипт
 ```
@@ -1178,7 +1194,7 @@ def draw():
 -------------------------------------------------------
 3. #TODO: если сталкивается с пеньком, уменьшаем очки на 1
    #TODO: добавить бонус мешочки, до которых можно допрыгнуть
-   #TODO: если очки будут равны нулю, то Gave Over 
+   #TODO: если очки будут равны нулю, то Game Over 
 ```
 i = 0 
 x = -20
@@ -1320,9 +1336,36 @@ def draw():
     if dx == 600:
         dx = 0    
     dx = dx + 1 
-```  
+``` 
 *******************************************************************************************
                                           Lesson 11
+                                          рисовалка										  
+******************************************************************************************* 
+1. рисовалка
+```
+def setup():
+    background(205)
+    size(600,600)
+def draw():
+    if mousePressed:
+        line(mouseX,mouseY,pmouseX,pmouseY)
+    if keyPressed:
+        if key == 'w' or key == 'W':
+            stroke(255)
+        if key == 'e' or key == 'E':
+            stroke(0,255,0)
+        if key == 'r' or key == 'R':
+            stroke(255,0,0)
+        if key == 's' or key == 'S':
+            stroke(0,0,255)
+def mousePressed():
+    if mouseButton == RIGHT:
+        stroke(205)
+    if mouseButton == LEFT:
+        stroke(0)
+```
+*******************************************************************************************
+                                          Lesson 12
 *******************************************************************************************
 ----------------------------------------------------
 1. - Слайдер
