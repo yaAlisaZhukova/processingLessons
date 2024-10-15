@@ -29,6 +29,6 @@
 ---------------------------------------
 8. sketch_08_draw_lines
     
- ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_08_draw_lines/how/drawLinesshooter.gif?raw=true) 
+ ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_08_draw_lines/how/drawLines.gif?raw=true) 
 ---------------------------------------
 
