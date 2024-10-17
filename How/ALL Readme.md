@@ -7,26 +7,12 @@ https://discourse.processing.org/
 --------------------------------------------- 
 0. Задание: 
 Нарисуй снеговика
-----------------------------------------
-1.
-- Даунлодим Processing
-https://processing.org/download
-
--  Распаковываем zip
-processing-4.3-windows-x64.zip
-
-- Раним processing.exe
-
-- Добавляем Python
-
-Java -> Manage Models -> Python
--> Python Mode for Processing 4 -> Install
----------------------------------------
-1.1
-Если переходите с processing-4.3
+---------------------------------------- 
+1. Даунлодим processing-3.5.4
+ 
+- Если переходите с processing-4.3
 на processing-3.5.4
-
--
+ 
 https://processing.org/releases
 -> Version 3.5.4 
 -> Windows 64-bit
@@ -1337,6 +1323,40 @@ def draw():
         dx = 0    
     dx = dx + 1 
 ``` 
+------------------------------------------------
+2. Для игры гонки
+```
+carListY = [-600, -300, -50, 250, 500]
+carListY2 = [-650, -220, -70, 350, 550]
+dy = 0
+def setup():
+    size(600, 600)
+    
+def car(x,y):  
+    fill(155)
+    circle(32+x, 38+y, 18) 
+    circle(82+x, 38+y, 18)
+    circle(32+x, 130+y, 18)
+    circle(82+x, 130+y, 18)
+    fill(155, 166, 255)
+    rect(30+x, 20+y, 55, 135, 6, 6, 18, 18)
+    fill(155) 
+    rect(35+x, 115+y, 45, 30, 3, 6, 18, 18)
+    
+def carMove():      
+    global dy
+    for y in carListY:
+        car(150, y + dy)
+    for y in carListY2:
+        car(320, y + dy)    
+    if dy == 600:
+        dy = 0
+    dy += 1      
+                  
+def draw():
+    background(155)
+    carMove() 
+```
 *******************************************************************************************
                                           Lesson 11
                                           рисовалка										  
