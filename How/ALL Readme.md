@@ -550,7 +550,8 @@ def draw():
                                                     Lesson 4
                                                   - mousePressed()
                                                   - keyPressed()
-                                                  - переменные												  
+                                                  - переменные
+                                                  - глобальные переменные												  
 *********************************************************************************************************************
 
 ![alt text](https://github.com/Elenn/processing_python/blob/main/04_Lesson/how/mousePressed.png?raw=true) 
@@ -1044,6 +1045,22 @@ def draw():
 ```
 
 -----------------------------------------------------------
+7. Бесконечное движение шариков
+```
+circleList = [[100], [320]]
+def setup():
+    size(600,600)
+    
+def draw():
+    background(147)
+    global circleList
+    for x in circleList:
+        circle(x[0], 150, 50)
+        x[0] = x[0] + 1
+        if x[0] == 650:
+            x[0] = -50
+``` 
+-----------------------------------------------------------
 8. Показываем содержимое листа(списка) в виде графика
 ```
 def setup():
@@ -1320,15 +1337,42 @@ def draw():
     for x in shipXList:
        ship(x + dx)
     if dx == 600:
-        dx = 0    
+        dx = -50    
     dx = dx + 1 
 ``` 
 ------------------------------------------------
-2. Для игры гонки
+2. Бесконечное движение снеговиков
+
 ```
-carListY = [-600, -300, -50, 250, 500]
-carListY2 = [-650, -220, -70, 350, 550]
+circleList = [[100], [320]]
+def setup():
+    size(600,600)
+    
+def snowman(x):
+    circle(x, 105, 70) 
+    circle(x, 200, 120)   
+    
+def draw():
+    background(147) 
+    global circleList
+    for x in circleList:
+        snowman(x[0]) 
+        x[0] = x[0] + 1
+        if x[0] == 650:
+            x[0] = -50
+```			
+------------------------------------------------
+2. Для игры гонки. Да они ВСЕ по встречке едут!!!!!
+
+```
+carListY = [-1100, -810, -600, -300, -50, 250, 500]
+carListY2 = [-1200, -900, -650, -220, -70, 350, 550]
+carListY3 = [-680, 350, 550]
+carListY4 = [-320, -110,]
+lineBetweenRoads = [-50,100,250,400,550,700,900]
 dy = 0
+myCarX = 380
+
 def setup():
     size(600, 600)
     
@@ -1341,21 +1385,51 @@ def car(x,y):
     fill(155, 166, 255)
     rect(30+x, 20+y, 55, 135, 6, 6, 18, 18)
     fill(155) 
-    rect(35+x, 115+y, 45, 30, 3, 6, 18, 18)
+    rect(35+x, 115+y, 45, 30, 6, 6, 18, 18)
+    
+def myCar(x,y):  
+    fill(155)
+    circle(32+x, 38+y, 18) 
+    circle(77+x, 38+y, 18)
+    circle(32+x, 120+y, 18)
+    circle(77+x, 120+y, 18)
+    fill(255, 166, 183)
+    rect(30+x, 20+y, 50, 120, 18, 18, 6, 6)
+    fill(155) 
+    rect(35+x, 30+y, 40, 28, 18, 18, 8, 8)    
     
 def carMove():      
     global dy
+    for i in range(0,6):
+       fill(255)
+       noStroke()
+       rect(width/2,lineBetweenRoads[i],20,100)
+   
     for y in carListY:
-        car(150, y + dy)
+        car(120, y + dy)
+    for y in carListY3:
+        car(205, y + dy)
     for y in carListY2:
-        car(320, y + dy)    
-    if dy == 600:
+        car(305, y + dy) 
+    for y in carListY4:
+        car(395, y + dy)   
+    if dy == 1000:
         dy = 0
-    dy += 1      
-                  
+    dy += 1  
+        
+def keyPressed():
+    global myCarX
+    if keyCode == RIGHT: 
+       myCarX = myCarX + 5
+    if keyCode == LEFT: 
+       myCarX = myCarX - 5  
+                                        
 def draw():
     background(155)
-    carMove() 
+    fill(100) 
+    rect(140,0,350,600)  
+    carMove()
+    myCar(myCarX, 400) 
 ```
 *******************************************************************************************
                                           Lesson 11
