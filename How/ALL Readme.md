@@ -967,9 +967,21 @@ def draw():
    
    for x in range(0, 64): 
        circle(x*10, 180, 10)
-```	   
+```	
 ----------------------------
 2. Рисуем вертикальные линии 
+
+```
+boxSize = 10
+def setup(): 
+    size(640, 320)  
+     
+def draw():  
+    for i in range(0, 64):
+      line(i*10, 0, i*10, height)
+```    
+----------------------------
+3. Рисуем вертикальные линии 
 
 ```
 boxSize = 20
@@ -981,7 +993,7 @@ def draw():
       line(i*boxSize, 0, i*boxSize, height)
 ``` 
 ----------------------------
-3. Рисуем горизонтальные линии 
+4. Рисуем горизонтальные линии 
 
 ```
 boxSize = 20
@@ -993,7 +1005,7 @@ def draw():
       line(0, i*boxSize, width, i*boxSize, )
 ``` 
 ----------------------------
-4. Рисуем вертикальные и горизонтальные линии 
+5. Рисуем вертикальные и горизонтальные линии 
 
 ```
 boxSize = 20
@@ -1008,7 +1020,7 @@ def draw():
       line(0, i*boxSize, width, i*boxSize, )
 ``` 
 -----------------------------
-5. - for loop, range, increment by 10
+6. - for loop, range, increment by 10 (шаг 10)
 - вызываем исполнения кода внутри for 
 каждый раз от 0 до 639 с шагом 10
 -(то есть x принимает последовательно значения 0, 10, 20, 30 . . .630)
@@ -1024,15 +1036,36 @@ def draw():
    
    for x in range(0, 640, 10): 
        circle(x, 180, 10)
+```
+-------------------------------------------------------------	
+7. - Вложенные циклы: Nested for loops;
+- for loop, range, increment by 10 (шаг 10)
+- вызываем исполнения кода внутри for 
+каждый раз от 0 до 639 с шагом 10
+-(то есть x принимает последовательно значения 0, 10, 20, 30 . . .630)
+
+
+```
+def setup():
+   size(640, 360) 
+ 
+def draw():
+   background(0);
+   fill(255) 
+   
+   for y in range(0, 360, 10):
+       for x in range(0, 640, 10): 
+           circle(x, y, 10)
 ```	 
 -------------------------------------
-6. - Вложенные циклы: Nested for loops;
+8. - Вложенные циклы: Nested for loops;
 - noLoop() - вызываем метод draw() только одина раз 
 - то есть мы повторяем созданную нами строчку из кругов еще и по высоте (y) 
 - ellipseMode(CORNER): круг, это часный случай элипса, когда ширина равна высоте,
 поэтому мы используем ellipseMode 
 - значение CORNER - значит, что позицию x и y мы определяем у левого верхнего
 угла квадрата, в который вписан наш круг
+
 ```
 def setup():
    size(640, 360)
@@ -1045,8 +1078,8 @@ def draw():
    
    ellipseMode(CORNER)  
    
-   for x in range(0, 640/circleWidth + 1): 
-       for y in range(0, 360/circleWidth): 
+   for y in range(0, 360/circleWidth + 1): 
+       for x in range(0, 640/circleWidth): 
            circle(x*circleWidth, y*circleWidth, circleWidth)
 ```		   
 ************************************************************************************************************************
@@ -1313,14 +1346,45 @@ def setup():
 def draw():
    global i
    background(255) 
+   
    image(catImageList[i], 50, 150) 
+   
+   if (i == 1 and frameCount%30==0): 
+      i = 0
+   elif(i == 0 and frameCount%30==0): 
+      i = 1 
+```
+----------------------------------------------------
+3. - Котенок, который машет лапой. Длинна листа. len(catImageList). 
+- Сохраняем несколько имиджей в лист
+-  Меняем вызов имиджа (не на каждом вызове метода draw, а только на каждом трицатом)
+```
+i = 0 
+
+def setup():  
+  global catImageList 
+  size(640, 360)
+  
+  catImageList = []
+  catRight = loadImage("catRight.png") 
+  catUp = loadImage("catUp.png") 
+  
+  catImageList.append(catRight)
+  catImageList.append(catUp)  
+
+def draw():
+   global i
+   background(255) 
+   
+   image(catImageList[i], 50, 150) 
+   
    if (frameCount%30==0 and i == (len(catImageList) - 1)): 
       i = 0
    elif(frameCount%30==0): 
       i = i + 1 
 ```
 -------------------------------------------------------
-3. #TODO: если сталкивается с пеньком, уменьшаем очки на 1
+4. #TODO: если сталкивается с пеньком, уменьшаем очки на 1
    #TODO: добавить бонус мешочки, до которых можно допрыгнуть
    #TODO: если очки будут равны нулю, то Game Over 
 ```
