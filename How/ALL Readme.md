@@ -1282,13 +1282,11 @@ def draw():
 **************************************************************************************************************************************************
 ----------------------------------------------------
 1. Показываем имидж
-```
-bonusImage 
-
+``` 
 def setup(): 
   global bonusImage
   size(640, 360)
-  bonusImage = loadImage("catRight.gif")  
+  bonusImage = loadImage("catRight.png")  
 
 def draw():
    background(255)
@@ -1306,8 +1304,8 @@ def setup():
   size(640, 360)
   
   catImageList = []
-  catRight = loadImage("catRight.gif") 
-  catUp = loadImage("catUp.gif") 
+  catRight = loadImage("catRight.png") 
+  catUp = loadImage("catUp.png") 
   
   catImageList.append(catRight)
   catImageList.append(catUp)  
