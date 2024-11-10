@@ -30,4 +30,4 @@ def draw():
   
   textSize(20) 
   fill(0) 
-  text(collected,370,40)   
+  text(collected,370,40)
