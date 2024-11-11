@@ -23,7 +23,7 @@
     
 ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_06_infinitive_move_ship/how/ship_move.gif?raw=true)
 ---------------------------------------
-7. sketch_07_simplest_shooter
+7. sketch_07_shoot_ships
     
  ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_07_shoot_ships/how/shipShoot.gif?raw=true) 
 ---------------------------------------
