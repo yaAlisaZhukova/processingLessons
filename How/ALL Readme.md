@@ -224,9 +224,9 @@ def setup():
     
 def ship(x):    
     fill(122, 89, 255)
-    rect(54+x,25,10,40)
-    rect(48+x,30,6,20)
-    quad(30+x, 49, 86+x, 49, 69+x, 76, 45+x, 76)
+    rect(25+x,38,10,30)
+    rect(20+x,40,6,20)
+    quad(x, 50, 55+x, 50, 40+x, 75, 15+x, 75)
     
 def draw():
     ship(0) 
@@ -1431,9 +1431,9 @@ def keyPressed():
         
 def ship(x):    
     fill(122, 89, 255)
-    rect(55+x,38,10,30)
-    rect(50+x,40,6,20)
-    quad(30+x, 50, 85+x, 50, 70+x, 75, 45+x, 75)
+    rect(25+x,38,10,30)
+    rect(20+x,40,6,20)
+    quad(x, 50, 55+x, 50, 40+x, 75, 15+x, 75)
     
 def draw():
     background(147)
@@ -1452,7 +1452,7 @@ def draw():
             
     for bullet in bullets:
         for shipX in shipList:
-            if dist(gunX, bullet[0], shipX[0]+50, 60) < 20:  
+            if dist(gunX, bullet[0], shipX[0]+20, 75) < 20:  
                 bullets.remove(bullet)
                 shipList.remove(shipX)
                 
@@ -1701,9 +1701,9 @@ def setup():
     
 def ship(x):    
     fill(122, 89, 255)
-    rect(54+x,25,10,40)
-    rect(48+x,30,6,20)
-    quad(30+x, 49, 86+x, 49, 69+x, 76, 45+x, 76)
+    rect(25+x,38,10,30)
+    rect(20+x,40,6,20)
+    quad(x, 50, 55+x, 50, 40+x, 75, 15+x, 75)
     
 def draw():
     background(155)
