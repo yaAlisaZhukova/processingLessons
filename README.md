@@ -25,7 +25,7 @@
 ---------------------------------------
 7. sketch_07_simplest_shooter
     
- ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_07_simplest_shooter/how/shooter.gif?raw=true) 
+ ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_07_shoot_ships/how/shipShoot.gif?raw=true) 
 ---------------------------------------
 8. sketch_08_draw_lines
     
