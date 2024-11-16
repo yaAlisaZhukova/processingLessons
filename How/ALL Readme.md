@@ -1278,7 +1278,62 @@ def draw():
                                                     dist
 													коллизии
 *********************************************************************************************************************************
-1. Исчезают шарики при нажатии на них.
+1. Исчезают шарик при нажатии на него.
+```
+showCircle = True
+circleX  =  150
+circleY  = 150
+
+def setup():
+  size(400, 500)   
+  
+def draw(): 
+  background(200)  
+  global showCircle
+  
+  if mousePressed and dist(mouseX, mouseY, circleX, circleX) < 20:
+    showCircle = False
+
+  if showCircle:        
+    fill(0,255,0)    
+    ellipse(circleX, circleY, 20, 20)
+```
+-------------------------------------------------
+2. Исчезают шарик при нажатии на кнопку Hide,
+показываем шарик при нажатии на кнопку Show
+
+```
+circleX  = 150
+circleY  = 150
+
+def setup():
+  size(400, 500)   
+  
+def draw(): 
+  background(200)  
+  global showCircle
+  
+  if mousePressed and dist(mouseX, mouseY, 30, 16) < 20:
+    showCircle = True
+  if mousePressed and dist(mouseX, mouseY, 100, 16) < 20:
+    showCircle = False
+
+  if showCircle:        
+    fill(0,255,0)    
+    ellipse(circleX, circleY, 20, 20)
+  
+  fill(0,255,0) 
+  ellipse(30, 16, 50, 25)
+  fill(255, 65, 100)
+  ellipse(100, 16, 50, 25)
+  
+  fill(10) 
+  textSize(16)  
+  text(u'Show', 10, 20) 
+  text(u'Hide', 83, 20)
+```  
+-------------------------------------------------	
+3. Исчезают шарики при нажатии на них.
 
 ```
 coinList = [[20, 85], [380, 77], [175, 200], [350, 20], [44, 450]]  
@@ -1296,7 +1351,7 @@ def draw():
     ellipse(item[0], item[1], 20, 20)
 ```	
 -------------------------------------------------------------------	
-2. Исчезают шарики при нажатии на них. Показываем счет.
+4. Исчезают шарики при нажатии на них. Показываем счет.
 
 ```
 coinList = [[20, 85], [380, 77], [175, 200], [350, 20], [44, 450]]  
@@ -1322,51 +1377,53 @@ def draw():
     ellipse(item[0], item[1], 20, 20)     
 ```	
 -------------------------------------------------------------
-3. - Исчезают шарики при нажатии на них. 
+5. - Исчезают шарики при нажатии на них. 
 - Показываем счет. 
 - Добавляем шарики при нажатии на кнопку 'New Coins'
 
 ```	
-	coinList = [[20, 85], [380, 77], [175, 200], [350, 120], [44, 450]]  
-	collected = 0
-	def setup():
-	  size(400, 500) 
-	  
-	def addRandomCircles():
-		global coinList 
-		for i in range(0, 5): 
-			innerList = [random(0, width), random(90,height-20)] 
-			coinList.append(innerList)        
-	  
-	def draw(): 
-	  background(200)
-	  global collected
-	  
-	  textSize(20) 
-	  fill(0) 
-	  text(collected,370,40)    
-	  
-	  if len(coinList) == 0:
-		  noFill() 
-		  rect(10, 10, 110, 30)
-		  
-		  textSize(20)  
-		  text('New Coins',12,30) 
-		  
-		  if mousePressed and dist(mouseX, mouseY, 65, 25) < 40: 
-			  addRandomCircles()
-	  
-	  for item in coinList:   
-		if mousePressed and dist(mouseX, mouseY, item[0], item[1]) < 20:
-			coinList.remove(item)
-			collected +=1 
-			
-		fill(0,255,0)    
-		ellipse(item[0], item[1], 20, 20)  
+coinList = [[20, 85], [380, 77], [175, 200], [350, 120], [44, 450]]  
+collected = 0
+def setup():
+    size(400, 500) 
+    
+def addRandomCircles():
+    global coinList 
+    for i in range(0, 5): 
+        innerList = [random(0, width), random(90,height-20)] 
+        coinList.append(innerList)        
+
+def mousePressed():
+    if dist(mouseX, mouseY, 65, 25) < 40:
+        print('add') 
+        addRandomCircles()    
+            
+def draw(): 
+    background(200)
+    global collected
+    
+    textSize(20) 
+    fill(0) 
+    text(collected,370,40)    
+    
+    if len(coinList) == 0:
+        noFill() 
+        rect(10, 10, 110, 30)
+    
+    textSize(20)  
+    text('New Coins',12,30)   
+    
+    for item in coinList:   
+        if mousePressed and dist(mouseX, mouseY, item[0], item[1]) < 20:
+            coinList.remove(item)
+            collected +=1 
+    
+        fill(0,255,0)    
+        ellipse(item[0], item[1], 20, 20)
     
 ```	
 --------------------------------------------
-4. Сбиваем движущиеся кружочки.
+6. Сбиваем движущиеся кружочки.
 ```
 circleList = [[100], [320]]
 bullets = []
@@ -1408,7 +1465,7 @@ def draw():
                  
 ```	
 --------------------------------------------
-5. Сбиваем движущиеся караблики.
+7. Сбиваем движущиеся караблики.
 ```
 shipList = [[-500], [-320], [100], [320],  [480]]
  
@@ -1458,7 +1515,7 @@ def draw():
                 
 ```
 --------------------------------------------------
-6. Собираем сокровища в лабиринте
+8. Собираем сокровища в лабиринте
 ChatGPT -> Пример кода для обработки коллизий. лабиринт собираем сокровища python processing
 
 ```
@@ -1965,8 +2022,6 @@ def draw():
 ***********************************************************************************************************************
                                       Lesson 14
 ***********************************************************************************************************************
- 
-
 
 
 
