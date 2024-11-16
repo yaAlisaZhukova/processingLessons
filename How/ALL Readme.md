@@ -1081,7 +1081,30 @@ def draw():
    for y in range(0, 360/circleWidth + 1): 
        for x in range(0, 640/circleWidth): 
            circle(x*circleWidth, y*circleWidth, circleWidth)
-```		   
+```
+-------------------------------------------
+9. - Вложенные циклы: Nested for loops;
+- шахматная доска 
+
+```
+def setup():
+   size(600, 600)
+   noLoop()   
+ 
+def draw():
+   background(0);
+   fill(255)
+   rectWidth = 60 
+   
+   ellipseMode(CORNER)  
+   
+   for y in range(0, 8): 
+       for x in range(0, 8):
+           fill(255)
+           if( x%2==0 and y%2!=0) or (x%2!=0 and y%2==0):
+               fill(146) 
+           rect(x*rectWidth, y*rectWidth, rectWidth, rectWidth) 
+```	   
 ************************************************************************************************************************
                                                     Lesson 6
                                                     - List
@@ -1273,6 +1296,9 @@ def draw():
         circle(gunX + 30, bullet[0], 20)
         
 ```
+-----------------------------------------
+10.
+
 *********************************************************************************************************************************
                                                     Lesson 7
                                                     dist
@@ -1291,7 +1317,7 @@ def draw():
   background(200)  
   global showCircle
   
-  if mousePressed and dist(mouseX, mouseY, circleX, circleX) < 20:
+  if mousePressed and dist(mouseX, mouseY, circleX, circleY) < 20:
     showCircle = False
 
   if showCircle:        
