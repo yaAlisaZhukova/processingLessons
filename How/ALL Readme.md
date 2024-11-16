@@ -1325,6 +1325,31 @@ def draw():
     ellipse(circleX, circleY, 20, 20)
 ```
 -------------------------------------------------
+1.1. Исчезают снеговик при нажатии на него.
+```
+showCircle = True
+circleX  =  150
+circleY  = 150
+
+def setup():
+  size(400, 500) 
+  
+def snowman():
+    circle(100, 255, 30) 
+    circle(100, 300, 60)     
+  
+def draw(): 
+  background(200)  
+  global showCircle 
+  
+  if mousePressed and dist(mouseX, mouseY, 100, 280) < 80:
+    showCircle = False
+
+  if showCircle:        
+    fill(0,255,0)    
+    snowman()
+```
+-------------------------------------------------
 2. Исчезают шарик при нажатии на кнопку Hide,
 показываем шарик при нажатии на кнопку Show
 
