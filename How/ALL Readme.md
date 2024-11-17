@@ -1356,6 +1356,7 @@ def draw():
 ```
 circleX  = 150
 circleY  = 150
+showCircle = True
 
 def setup():
   size(400, 500)   
