@@ -2096,7 +2096,7 @@ def setup():
     
 def keyPressed():
     global dx, dy
-    if (keyCode == LEFT ): 
+    if keyCode == LEFT: 
        dx = -1
        dy = 0 
     elif keyCode == UP: 
@@ -2117,7 +2117,7 @@ def draw():
       line(i*boxSize, 0, i*boxSize, height)
     
     for i in range(0, height/boxSize):
-      line(0, i*boxSize, width, i*boxSize, )
+      line(0, i*boxSize, width, i*boxSize )
      
     for i in range(0, len(x)):  
         fill (0,255,0) 
@@ -2146,10 +2146,8 @@ def draw():
                 y.remove(y[0]) # удаляем хвост
     else:
         fill(0)
-        textSize(30);
-        text("GAME OVER", 20, height/2);           
-         
-     
+        textSize(30)
+        text("GAME OVER", 20, height/2)  
  
 ```
 
