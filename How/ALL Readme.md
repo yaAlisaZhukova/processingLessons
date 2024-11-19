@@ -2076,10 +2076,12 @@ def draw():
                                       Lesson 14
 									  Змейка
 ***********************************************************************************************************************
-1. Змейка, на каждом шаге добавляем новый элемент в конец листа
-Убираем первый элемент.
+1. Змейка, на каждом шаге 
+- Добавляем новый элемент в конец листа
+- Убираем первый элемент.
 
 ```
+ 
 x = []
 y = []  
 appleX = 12
@@ -2134,8 +2136,8 @@ def draw():
             if x[len(x)-1] < 0 or x[len(x)-1] > width/boxSize or y[len(x)-1] < 0 or y[len(x)-1] > height/boxSize:
                 gameover = True 
                         
-            for i in range(1, len(x)): 
-                if(x[0] == x[i] and  y[0] == y[i]):  #если коснется своего хвоста, то gameover
+            for i in range(0, len(x)-2): 
+                if(x[len(x)-1] == x[i] and  y[len(y)-1] == y[i]):  #если коснется своего тела, то gameover
                    gameover = True 
             
             if x[len(x)-1]==appleX and y[len(x)-1]==appleY:
@@ -2147,8 +2149,8 @@ def draw():
     else:
         fill(0)
         textSize(30)
-        text("GAME OVER", 20, height/2)  
- 
+        text("GAME OVER", 20, height/2)    
+
 ```
 
 
