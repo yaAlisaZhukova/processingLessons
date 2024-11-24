@@ -31,4 +31,8 @@
     
  ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_08_draw_lines/how/drawLines.gif?raw=true) 
 ---------------------------------------
+9. sketch_09_snake_python
+    
+ ![alt text](https://github.com/yaAlisaZhukova/processingLessons/blob/main/sketch_09_snake_python/how/lsnake.gif?raw=true) 
+---------------------------------------
 
