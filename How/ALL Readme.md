@@ -1432,7 +1432,7 @@ def draw():
 -------------------------------------------------------------
 5. - Исчезают шарики при нажатии на них. 
 - Показываем счет. 
-- Добавляем шарики при нажатии на кнопку 'New Coins'
+- Добавляем шарики при нажатии на кнопку '+'
 
 ```	
 coinList = [[20, 85], [380, 77], [175, 200], [350, 120], [44, 450]]  
@@ -1441,14 +1441,12 @@ def setup():
     size(400, 500) 
     
 def addRandomCircles():
-    global coinList 
-    for i in range(0, 5): 
-        innerList = [random(0, width), random(90,height-20)] 
-        coinList.append(innerList)        
+    global coinList  
+    innerList = [random(0, width), random(10,height-20)] 
+    coinList.append(innerList)        
 
 def mousePressed():
-    if dist(mouseX, mouseY, 65, 25) < 40:
-        print('add') 
+    if dist(mouseX, mouseY, 65, 25) < 40: 
         addRandomCircles()    
             
 def draw(): 
@@ -1457,14 +1455,12 @@ def draw():
     
     textSize(20) 
     fill(0) 
-    text(collected,370,40)    
-    
-    if len(coinList) == 0:
-        noFill() 
-        rect(10, 10, 110, 30)
-    
+    text(collected,370,40)   
+     
+    noFill() 
+    rect(10, 10, 30, 30) 
     textSize(20)  
-    text('New Coins',12,30)   
+    text('+',16,30)   
     
     for item in coinList:   
         if mousePressed and dist(mouseX, mouseY, item[0], item[1]) < 20:
@@ -2080,10 +2076,9 @@ def draw():
 - Добавляем новый элемент в конец листа
 - Убираем первый элемент.
 
-```
- 
-x = []
-y = []  
+``` 
+x = [10,11,12]
+y = [5,5,5]
 appleX = 12
 appleY = 10 
 dx = 1 
@@ -2092,9 +2087,7 @@ boxSize = 20
 gameover = False
 
 def setup():
-    size(600,600)
-    x.append(5)
-    y.append(5)
+    size(600,600) 
     
 def keyPressed():
     global dx, dy
