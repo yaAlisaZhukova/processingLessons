@@ -1271,7 +1271,7 @@ def draw():
 --------------------------------------------------
 9. Простейшая стрелялка. Нажимаем на клавишу пробел.
 ```
-bullets = []
+bullets = [[550],[530],[500],[280]]
 gunX = 280
 gunY = 570
 bullet_speed = 5
@@ -1295,10 +1295,7 @@ def draw():
         bullet[0] = bullet[0] - bullet_speed 
         circle(gunX + 30, bullet[0], 20)
         
-```
------------------------------------------
-10.
-
+``` 
 *********************************************************************************************************************************
                                                     Lesson 7
                                                     dist
@@ -1445,7 +1442,7 @@ def addRandomCircles():
     innerList = [random(0, width), random(10,height-20)] 
     coinList.append(innerList)        
 
-def mousePressed():
+def mouseClicked():
     if dist(mouseX, mouseY, 65, 25) < 40: 
         addRandomCircles()    
             
