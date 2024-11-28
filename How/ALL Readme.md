@@ -2142,7 +2142,35 @@ def draw():
         text("GAME OVER", 20, height/2)    
 
 ```
+-----------------------------------------------------
+2. Таймер:
 
+```
+# метод timer меняет значение глобальной переменной timerValue
+# что бы добавить timer() в свой проект, надо добавить глобальную переменную timerValue
+# и вызвать timer() в методе draw()
+
+timerValue = 250
+def setup():
+    size(600,600)
+    
+def timer(): 
+    global timerValue
+    
+    fill(0)
+    textSize(20)
+    text(timerValue, 20, 40) 
+    
+    if frameCount%60==0 and timerValue != 0: 
+        timerValue = timerValue - 1  
+    
+def draw():
+    background(146)
+    timer()
+    
+    if timerValue < 240 and timerValue > 200:
+        ellipse(80, 80, 30, 30)
+```
 
 
 
