@@ -1771,8 +1771,54 @@ def draw():
    elif(frameCount%30==0): 
       i = i + 1 
 ```
+--------------------------------------------------------
+4. День рождения слона
+```
+x = 130
+y = 400
+cakeX = 680
+cakeY = 30
+showCake = True
+def setup(): 
+  global savanna 
+  global elephanta
+  global cake
+  size(640, 640)
+  savanna = loadImage("Savanna.png") 
+  elephanta = loadImage("elephant-a.png")
+  cake = loadImage("cake-a.png")
+  
+def keyPressed():
+    global x,y
+    if keyCode == RIGHT: 
+       x = x + 5 
+    if keyCode == LEFT:
+       x = x - 5        
+    if keyCode == UP:
+       y = y - 5               
+    if keyCode == DOWN:   
+       y = y + 5
+	   
+def draw(): 
+   global cakeX, cakeY, showCake 
+   image(savanna, 0, 0, 640, 640) 
+   image(elephanta, x, y, 200, 150)
+   
+   if showCake: 
+      image(cake, cakeX, cakeY, 200, 150)
+      
+   cakeX = cakeX - 1
+   if cakeX == 0:
+       cakeX = 680
+   
+   if cakeX == 680:
+       cakeY = random(50, 600)
+       showCake = True 
+   if dist(x + 180, y, cakeX, cakeY) < 30:
+       showCake = False 
+```	   
 -------------------------------------------------------
-4. #TODO: если сталкивается с пеньком, уменьшаем очки на 1
+5. #TODO: если сталкивается с пеньком, уменьшаем очки на 1
    #TODO: добавить бонус мешочки, до которых можно допрыгнуть
    #TODO: если очки будут равны нулю, то Game Over 
 ```
