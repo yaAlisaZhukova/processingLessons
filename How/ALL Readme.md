@@ -76,7 +76,7 @@ https://processing.org/reference
 - Выдели название фигуры
 - Правая кнопка -> Find in Reference
 - Смотрим параметры Parameters
-- Так для круга
+- Так для круга ellipse()
 первый параметр x-coordinate (координата x)
 второй параметр y-coordinate (координата y)
 третий параметр width and height (ширина и длинна)
@@ -910,10 +910,9 @@ def setup():
     size(600, 600)
     
 def keyPressed():
-    global x
-    if (key == CODED):  
-        if (keyCode == RIGHT): 
-           x = x + 100   
+    global x 
+    if (keyCode == RIGHT): 
+        x = x + 100   
             
 def draw():
     background(145)
@@ -1285,8 +1284,34 @@ def draw():
         if x[0] == 650:
             x[0] = -50 
 ```
+------------------------------------------------------------
+9. translate. Бесконечное движение Больших корабликов
+```
+circleList = [[100], [320]]
+def setup():
+    size(600,600, P3D)
+    
+def ship(x): 
+    pushMatrix()   
+    fill(122, 89, 255)
+    translate(150, 150, 250) 
+    rect(25+x,38,10,30)
+    rect(20+x,40,6,20)
+    quad(x, 50, 55+x, 50, 40+x, 75, 15+x, 75)   
+    popMatrix()
+    
+def draw():
+    background(147)
+    global circleList
+  
+    for x in circleList:
+        ship(x[0])
+        x[0] = x[0] + 1
+        if x[0] == 650:
+            x[0] = -50 
+```          
 -----------------------------------------------------------
-9. Показываем содержимое листа(списка) в виде графика
+10. Показываем содержимое листа(списка) в виде графика
 ```
 def setup():
   textSize(18) 
@@ -1310,7 +1335,7 @@ def draw():
      y =  y + 30 
 ```
 --------------------------------------------------
-10. Простейшая стрелялка. Нажимаем на клавишу пробел.
+11. Простейшая стрелялка. Нажимаем на клавишу пробел.
 ```
 bullets = [[550],[530],[500],[280]]
 gunX = 280
@@ -1601,8 +1626,53 @@ def draw():
                 shipList.remove(shipX)
                 
 ```
+-------------------------------------------------
+8. Сбиваем движущиеся караблики. Разный размер. svg.
+```
+shipList =  [[10, 100], [320, 200], [520, 300]]
+ 
+bullets = []
+gunX = 280
+gunY = 570
+bullet_speed = 5
+def setup():
+    global myShip
+    size(600,600)
+    myShip = loadShape("ship.svg")
+    
+def gun():
+    fill(255, 154, 165)
+    rectMode(CENTER)
+    rect(gunX, gunY, 60, 20)
+        
+def keyPressed():
+    global bullets
+    if key == ' ': 
+        bullets.append([gunY - 10])   
+    
+def draw():
+    background(147)
+    global circleList 
+    gun()
+    
+    for bullet in bullets: 
+        bullet[0] = bullet[0] - bullet_speed  
+        circle(gunX, bullet[0], 20) 
+  
+    for shipX in shipList:
+        shape(myShip, shipX[0], 10, shipX[1], 150) 
+        shipX[0] = shipX[0] + 1
+        if shipX[0] == 650:
+            shipX[0] = -50
+            
+    for bullet in bullets:
+        for shipX in shipList:
+            if dist(gunX, bullet[0], shipX[0]+20, 75) < 20:  
+                bullets.remove(bullet)
+                shipList.remove(shipX)
+```				
 --------------------------------------------------
-8. Собираем сокровища в лабиринте
+9. Собираем сокровища в лабиринте
 ChatGPT -> Пример кода для обработки коллизий. лабиринт собираем сокровища python processing
 
 ```
@@ -1723,6 +1793,9 @@ def draw():
 **************************************************************************************************************************************************
                                                     Lesson 9
                                                     - Images
+													- loadImage
+													- svg
+													- loadShape
 **************************************************************************************************************************************************
 ----------------------------------------------------
 1. Показываем имидж
@@ -1839,9 +1912,50 @@ def draw():
        showCake = True 
    if dist(x + 180, y, cakeX, cakeY) < 30:
        showCake = False 
-```	   
+```	
 -------------------------------------------------------
-5. #TODO: если сталкивается с пеньком, уменьшаем очки на 1
+5. svg  Кораблик
+C:\web\AlicaPython\AlisaCreativica\LenaPlay\sketch_10_sketch_Image
+
+```	
+def setup(): 
+    global myShip
+    size(640, 360)
+    myShip = loadShape("ship.svg")  
+
+def draw():
+    background(255)
+    shape(myShip, 10, 10, 80, 80) #filename x y width height
+```
+
+LenaPlay\sketch_10_image_svg\ship.svg
+
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"> 
+   <rect width="10" height="30" x="25" y="38" fill="blue" />
+   <rect width="6" height="20" x="20" y="40" fill="blue" />
+   <polygon points="0,50 55,50 40,75 15,75" style="fill:blue;stroke:blue;stroke-width:3" /> 
+</svg>
+------------------------------------------------------
+6. Движение корабликов
+```	
+circleList = [[10, 100], [320, 200], [520, 300]]
+def setup():
+    global myShip
+    size(600,600)
+    myShip = loadShape("ship.svg")
+     
+def draw():
+    background(147)
+    global circleList
+  
+    for x in circleList:
+        shape(myShip, x[0], 10, x[1], 150)
+        x[0] = x[0] + 1
+        if x[0] == 650:
+            x[0] = -50
+```	  		
+-------------------------------------------------------
+7. #TODO: если сталкивается с пеньком, уменьшаем очки на 1
    #TODO: добавить бонус мешочки, до которых можно допрыгнуть
    #TODO: если очки будут равны нулю, то Game Over 
 ```
@@ -1886,11 +2000,11 @@ def keyPressed():
   global y 
   global jump
   global beforeJumpY
-  if (key == CODED):  
-    if (keyCode == UP):
-      beforeJumpY = y 
-      jump = True
-      y = y - 100   
+   
+  if keyCode == UP:
+    beforeJumpY = y 
+    jump = True
+    y = y - 100   
 
 def draw():
    global i
