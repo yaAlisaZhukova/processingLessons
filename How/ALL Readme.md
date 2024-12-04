@@ -941,8 +941,7 @@ def draw():
 ```	
 **********************************************************************************************************************
                                                        Lesson 5
-                                                       - range(0, 64)
-													   Алиса - кнопки на экране
+                                                       - range(0, 64) 
 **********************************************************************************************************************   
 
 ![alt text](https://github.com/Elenn/processing_python/blob/main/05_Lesson/how/nestedLoops.png?raw=true)
@@ -1177,11 +1176,9 @@ def setup():
     size(640, 320)  
     
 def draw(): 
-    y = 0
-    for x in clrcleXList:
-        y += 50 
+    for x in clrcleXList: 
         fill(255,0,0)
-        circle(x,y,30)
+        circle(x,150,30)
 ```	
 ---------------------------------------------------------- 
 4. List append
@@ -1193,14 +1190,12 @@ def setup():
     
 def mouseClicked():
     global clrcleX 
-    clrcleX.append(random(20, 630))    
+    clrcleX.append(random(20, 580))    
     
-def draw():
-    y = 0  
-    for x in clrcleX:
-        y += 50 
+def draw(): 
+    for x in clrcleX: 
         fill(255,0,0)
-        circle(x,y,30)
+        circle(x,150,30)
 ```	
 -------------------------------------------------------------	
 5. List append
@@ -1215,10 +1210,9 @@ def setup():
     
 def draw(): 
     y = 0
-    for x in clrcleXList:
-        y += 50 
+    for x in clrcleXList: 
         fill(255,0,0)
-        circle(x,y,30)
+        circle(x,150,30)
 ```	
 ------------------------------------------------------------------
 6. List remove 
@@ -1237,12 +1231,10 @@ def mouseClicked():
         print(clrcleX)    
     
 def draw():
-    background(155)
-    y = 0  
-    for x in clrcleX:
-        y += 50 
+    background(155) 
+    for x in clrcleX: 
         fill(255,0,0)
-        circle(x,y,30)
+        circle(x,150,30)
 ``` 
 -----------------------------------------------------------
 7. Бесконечное движение шариков
@@ -1670,7 +1662,14 @@ def draw():
             if dist(gunX, bullet[0], shipX[0]+20, 75) < 20:  
                 bullets.remove(bullet)
                 shipList.remove(shipX)
-```				
+```	
+LenaPlay\sketch_10_image_svg\ship.svg
+
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"> 
+   <rect width="10" height="30" x="25" y="38" fill="blue" />
+   <rect width="6" height="20" x="20" y="40" fill="blue" />
+   <polygon points="0,50 55,50 40,75 15,75" style="fill:blue;stroke:blue;stroke-width:3" /> 
+</svg>			
 --------------------------------------------------
 9. Собираем сокровища в лабиринте
 ChatGPT -> Пример кода для обработки коллизий. лабиринт собираем сокровища python processing
