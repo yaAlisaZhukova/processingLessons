@@ -206,10 +206,10 @@ def setup():
 def airplane(x):
      fill(39, 82, 113)
      noStroke()
-     ellipse(150+x,150,155,25) 
-     quad(60+x, 130, 70+x, 125, 110+x, 150, 85+x, 150)  
-     quad(140+x, 110, 150+x, 100, 200+x, 140, 165+x, 140) 
-     quad(140+x, 190, 150+x, 200, 200+x, 160, 165+x, 160)     
+     ellipse(x,150,155,25) 
+     quad(-90+x, 130, -80+x, 125, -30+x, 150, -65+x, 150)  
+     quad(-10+x, 110, x, 100, 50+x, 140, 15+x, 140) 
+     quad(-10+x, 190, x, 200, 50+x, 160, 15+x, 160)     
    
 def draw():
     airplane(0)
@@ -231,9 +231,24 @@ def ship(x):
 def draw():
     ship(0) 
     ship(200) 
+```
+--------------------------------------------------
+6. Кролик. Метод с параметрами.
+```
+def setup():
+    size(600,600)
+    
+def rabbit(x):
+    ellipse(-5+x, 50, 10, 40) 
+    ellipse(5+x, 50, 10, 40)
+    ellipse(x, 70, 30, 30) 
+    
+def draw():
+    background(147)  
+    rabbit(20)
 ``` 
 --------------------------------------------------
-6. boxten. Метод с параметрами.
+7. boxten. Метод с параметрами.
 
 ```
 def setup():
@@ -279,24 +294,24 @@ def draw():
     boxten(200) 
 ```
 ------------------------------------------
-7. Машинка. Метод с параметрами. 
+8. Машинка. Метод с параметрами. 
 ```
 def setup():
     size(600, 600)
     
 def car(x,y):  
     fill(155)
-    circle(32+x, 38+y, 18) 
-    circle(82+x, 38+y, 18)
-    circle(32+x, 130+y, 18)
-    circle(82+x, 130+y, 18)
+    circle(x, 38+y, 18) 
+    circle(52+x, 38+y, 18)
+    circle(x, 130+y, 18)
+    circle(52+x, 130+y, 18)
     fill(155, 166, 255)
-    rect(30+x, 20+y, 55, 135, 6, 6, 18, 18)
+    rect(-2+x, 20+y, 55, 135, 6, 6, 18, 18)
     fill(155) 
-    rect(35+x, 115+y, 45, 30, 6, 6, 18, 18)
+    rect(3+x, 115+y, 45, 30, 6, 6, 18, 18)
     
 def draw():
-    car(120, 50) 
+    car(0, 50) 
     car(120, 420)
 ``` 
 ***********************************************************************************************************************
@@ -1354,6 +1369,40 @@ def draw():
         circle(gunX + 30, bullet[0], 20)
         
 ``` 
+---------------------------------------------------
+12. Простейшая стрелялка. Нажимаем на клавишу пробел.
+Только 5 пулек в наличии.
+
+```
+bullets = [[550],[530],[500],[280]]
+gunX = 280
+gunY = 570
+bullet_speed = 5
+
+def setup():
+    size(600,600)
+    
+def keyPressed():
+    global bullets 
+    if key == ' ' and len(bullets) < 5 : 
+        bullets.append([gunY - 10]) 
+    
+def gun():
+    fill(255, 154, 165)
+    rect(gunX, gunY, 60, 20) 
+    
+def draw():
+    background(146) 
+    gun()  
+        
+    for bullet in bullets:  
+        if bullet[0] < 0:
+           bullets.remove(bullet)
+        else:
+             bullet[0] = bullet[0] - bullet_speed    
+        fill(255, 154, 165) 
+        circle(gunX + 30, bullet[0], 20)
+```
 *********************************************************************************************************************************
                                                     Lesson 7
                                                     dist
@@ -1671,7 +1720,74 @@ LenaPlay\sketch_10_image_svg\ship.svg
    <polygon points="0,50 55,50 40,75 15,75" style="fill:blue;stroke:blue;stroke-width:3" /> 
 </svg>			
 --------------------------------------------------
-9. Собираем сокровища в лабиринте
+9. Один ряд из лабиринта
+```
+#1 Стена
+#0 Пол 
+	   
+tilemap = [1,0,0,0,1,0,0,1,0,0] 
+
+cellWidth = 64
+cellHeight = 64 
+
+def setup():
+    size(640,640)   
+
+def renderMap():  
+	for i in range(0, len(tilemap)):
+		if tilemap[i] == 0:
+			fill(80)
+			rect(i*cellWidth, 0, cellWidth, cellHeight)				
+		elif tilemap[i] == 1:
+			fill(157, 219, 208)
+			rect(i*cellWidth, 0, cellWidth, cellHeight)      
+          
+def draw():
+    background(120)
+    renderMap() 
+``` 
+----------------------------------------------------
+10. Лабиринт
+
+```
+#1 Стена
+#0 Пол 
+	   
+tilemap = [
+   [1,1,1,1,1,1,1,1,1,1],
+   [1,0,0,0,1,0,0,1,0,0],
+   [1,1,1,0,1,0,0,0,0,1],
+   [1,0,0,1,1,0,1,1,0,1],
+   [1,1,0,1,1,0,1,1,1,1],
+   [1,0,0,1,0,0,0,0,2,1],
+   [1,0,0,1,1,1,1,0,0,1],
+   [1,0,1,1,0,0,1,0,0,1],
+   [1,0,0,0,0,1,1,1,0,1],
+   [1,1,1,1,1,1,1,1,1,1] 
+];
+
+cellWidth = 64
+cellHeight = 64 
+
+def setup():
+    size(640,640)   
+
+def renderMap(): 
+     
+    for j in range(0, len(tilemap)):
+        for i in range(0, len(tilemap[0])):
+            if tilemap[j][i] == 0:
+                fill(80)
+                rect(i*cellWidth, j*cellHeight, cellWidth, cellHeight)
+            elif tilemap[j][i] == 1:
+                fill(157, 219, 208) 
+          
+def draw():
+    background(120)
+    renderMap()
+``` 
+---------------------------------------------------
+11. Собираем сокровища в лабиринте
 ChatGPT -> Пример кода для обработки коллизий. лабиринт собираем сокровища python processing
 
 ```
@@ -1868,6 +1984,9 @@ def draw():
 ```
 --------------------------------------------------------
 4. День рождения слона
+- LenaPlay\sketch_10_image_elephant_birthday 
+- https://scratch.mit.edu/projects/1103624373/
+
 ```
 x = 130
 y = 400
@@ -1880,7 +1999,7 @@ def setup():
   global cake
   size(640, 640)
   savanna = loadImage("Savanna.png") 
-  elephanta = loadImage("elephant-a.png")
+  elephant = loadImage("elephant-a.png")
   cake = loadImage("cake-a.png")
   
 def keyPressed():
@@ -1897,18 +2016,17 @@ def keyPressed():
 def draw(): 
    global cakeX, cakeY, showCake 
    image(savanna, 0, 0, 640, 640) 
-   image(elephanta, x, y, 200, 150)
+   image(elephant, x, y, 200, 150)
    
    if showCake: 
       image(cake, cakeX, cakeY, 200, 150)
       
    cakeX = cakeX - 1
    if cakeX == 0:
-       cakeX = 680
-   
-   if cakeX == 680:
+       cakeX = 680 
        cakeY = random(50, 600)
-       showCake = True 
+       showCake = True
+	   
    if dist(x + 180, y, cakeX, cakeY) < 30:
        showCake = False 
 ```	
@@ -2137,14 +2255,14 @@ def setup():
     
 def car(x,y):  
     fill(155)
-    circle(32+x, 38+y, 18) 
-    circle(82+x, 38+y, 18)
-    circle(32+x, 130+y, 18)
-    circle(82+x, 130+y, 18)
+    circle(x, 38+y, 18) 
+    circle(52+x, 38+y, 18)
+    circle(x, 130+y, 18)
+    circle(52+x, 130+y, 18)
     fill(155, 166, 255)
-    rect(30+x, 20+y, 55, 135, 6, 6, 18, 18)
+    rect(-2+x, 20+y, 55, 135, 6, 6, 18, 18)
     fill(155) 
-    rect(35+x, 115+y, 45, 30, 6, 6, 18, 18)
+    rect(3+x, 115+y, 45, 30, 6, 6, 18, 18)
     
 def myCar(x,y):  
     fill(155)
@@ -2165,13 +2283,13 @@ def carMove():
        rect(width/2,lineBetweenRoads[i],20,100)
    
     for y in carListY:
-        car(120, y + dy)
+        car(150, y + dy)
     for y in carListY3:
-        car(205, y + dy)
+        car(235, y + dy)
     for y in carListY2:
-        car(305, y + dy) 
+        car(335, y + dy) 
     for y in carListY4:
-        car(395, y + dy)   
+        car(435, y + dy)   
     if dy == 1000:
         dy = 0
     dy += 1  
@@ -2186,7 +2304,7 @@ def keyPressed():
 def draw():
     background(155)
     fill(100) 
-    rect(140,0,350,600)  
+    rect(135,0,360,600)  
     carMove()
     myCar(myCarX, 400) 
 ```
