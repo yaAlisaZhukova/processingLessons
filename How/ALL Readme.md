@@ -1867,6 +1867,96 @@ def draw():
     textSize(50)
     text(score, 600, 50) 
 ``` 
+---------------------------------------------------------------
+12. Гонки. Да они ВСЕ по встречке едут!!!!!
+
+```
+carListY = [[-1100], [-890], [-500], [-350], [250]] 
+carListY2 = [[-680], [300] ]
+carListY3 = [[-300]]
+carListY4 = [[-320], [-110], [480]]
+carLength = 135
+lineBetweenRoads = [-50,100,250,400,550,700,900]
+dy = 0
+myCarX = 350
+myCarY = 500
+def setup():
+    size(600, 600) 
+    
+def car(x,y):  
+    fill(155)
+    circle(2+x, 18+y, 18) 
+    circle(54+x, 18+y, 18)
+    circle(2+x, 110+y, 18)
+    circle(54+x, 110+y, 18)
+    fill(155, 166, 255)
+    rect(x, y, 55, carLength, 6, 6, 18, 18)
+    fill(155) 
+    rect(5+x, 95+y, 45, 30, 6, 6, 18, 18)
+    
+def myCar(x,y):  
+    fill(155)
+    circle(2+x, 18+y, 18) 
+    circle(47+x, 18+y, 18)
+    circle(2+x, 100+y, 18)
+    circle(47+x, 100+y, 18)
+    fill(255, 166, 183)
+    rect(x, y, 50, 120, 18, 18, 6, 6)
+    fill(155) 
+    rect(5+x, 10+y, 40, 28, 18, 18, 8, 8)    
+    
+def carMove():  
+    for i in range(0,6):
+       fill(255)
+       noStroke()
+       rect(width/2,lineBetweenRoads[i],20,100) #белая дорожная разметка
+   
+    for y in carListY:
+        car(150, y[0])
+        y[0] = y[0] + 1
+        if y[0] == 1000:
+            y[0] = -150 
+        if dist(myCarX, myCarY, 150, y[0] + carLength) < 30:
+            noLoop()
+			
+    for y in carListY2:
+        car(235, y[0])
+        y[0] = y[0] + 1
+        if y[0] == 1000:
+            y[0] = -150 
+        if dist(myCarX, myCarY, 235, y[0] + carLength) < 30:
+            noLoop()
+			
+    for y in carListY3: 
+        car(335, y[0] + dy)
+        y[0] = y[0] + 1
+        if y[0] == 1000:
+            y[0] = -150 
+        if dist(myCarX, myCarY, 335, y[0] + carLength) < 30:
+            noLoop() 
+			
+    for y in carListY4:
+        car(435, y[0] + dy)
+        y[0] = y[0] + 1
+        if y[0] == 1000:
+            y[0] = -150 
+        if dist(myCarX, myCarY, 435, y[0] + carLength) < 30:
+            noLoop()  
+        
+def keyPressed():
+    global myCarX
+    if keyCode == RIGHT: 
+       myCarX = myCarX + 5
+    if keyCode == LEFT: 
+       myCarX = myCarX - 5  
+                                        
+def draw():
+    background(155)
+    fill(100) 
+    rect(135,0,360,600) #дорога 
+    carMove()
+    myCar(myCarX, myCarY)   
+```
 				
 **************************************************************************************************************************************************
                                                     Lesson 8
@@ -2237,77 +2327,7 @@ def draw():
         x[0] = x[0] + 1
         if x[0] == 650:
             x[0] = -50
-```			
-------------------------------------------------
-2. Для игры гонки. Да они ВСЕ по встречке едут!!!!!
-
-```
-carListY = [-1100, -810, -600, -300, -50, 250, 500]
-carListY2 = [-1200, -900, -650, -220, -70, 350, 550]
-carListY3 = [-680, 350, 550]
-carListY4 = [-320, -110,]
-lineBetweenRoads = [-50,100,250,400,550,700,900]
-dy = 0
-myCarX = 380
-
-def setup():
-    size(600, 600)
-    
-def car(x,y):  
-    fill(155)
-    circle(x, 38+y, 18) 
-    circle(52+x, 38+y, 18)
-    circle(x, 130+y, 18)
-    circle(52+x, 130+y, 18)
-    fill(155, 166, 255)
-    rect(-2+x, 20+y, 55, 135, 6, 6, 18, 18)
-    fill(155) 
-    rect(3+x, 115+y, 45, 30, 6, 6, 18, 18)
-    
-def myCar(x,y):  
-    fill(155)
-    circle(32+x, 38+y, 18) 
-    circle(77+x, 38+y, 18)
-    circle(32+x, 120+y, 18)
-    circle(77+x, 120+y, 18)
-    fill(255, 166, 183)
-    rect(30+x, 20+y, 50, 120, 18, 18, 6, 6)
-    fill(155) 
-    rect(35+x, 30+y, 40, 28, 18, 18, 8, 8)    
-    
-def carMove():      
-    global dy
-    for i in range(0,6):
-       fill(255)
-       noStroke()
-       rect(width/2,lineBetweenRoads[i],20,100)
-   
-    for y in carListY:
-        car(150, y + dy)
-    for y in carListY3:
-        car(235, y + dy)
-    for y in carListY2:
-        car(335, y + dy) 
-    for y in carListY4:
-        car(435, y + dy)   
-    if dy == 1000:
-        dy = 0
-    dy += 1  
-        
-def keyPressed():
-    global myCarX
-    if keyCode == RIGHT: 
-       myCarX = myCarX + 5
-    if keyCode == LEFT: 
-       myCarX = myCarX - 5  
-                                        
-def draw():
-    background(155)
-    fill(100) 
-    rect(135,0,360,600)  
-    carMove()
-    myCar(myCarX, 400) 
-```
+``` 
 *******************************************************************************************
                                           Lesson 12
                                           рисовалка										  
@@ -2489,7 +2509,8 @@ def draw():
     if timerValue < 240 and timerValue > 200:
         ellipse(80, 80, 30, 30)
 ```
-
+-------------------------------------------
+		
 
 
    
