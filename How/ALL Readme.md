@@ -258,36 +258,36 @@ def boxten(x):
     strokeWeight(2)
     stroke(0)
     fill(128,0,128)
-    ellipse(150+x,160,25,25)
+    ellipse(60+x,160,25,25)
 
     fill(128,0,128)
     strokeWeight(3)
     stroke(100,0,100)
-    rect(90+x,90,100,100)
+    rect(x,90,100,100)
     stroke(148,0,148)
-    rect(96+x,96,88,88)
+    rect(6+x,96,88,88)
 
     strokeWeight(2)
     stroke(0)
     fill(128,0,128)
-    ellipse(150+x,160,25,25)
+    ellipse(60+x,160,25,25)
 
     fill(255)
     strokeWeight(2)
     stroke(0)
-    ellipse(116+x,136,38,38)
-    ellipse(165+x,137,38,38)
+    ellipse(26+x,136,38,38)
+    ellipse(75+x,137,38,38)
 
     fill(0)
-    ellipse(116+x,136,25,25)
-    ellipse(165+x,137,25,25)
+    ellipse(26+x,136,25,25)
+    ellipse(75+x,137,25,25)
 
     strokeWeight(3)
     stroke(148,0,148)
-    line(96+x,96,105+x,105)
-    line(184+x,96,175+x,105)
-    line(96+x,185,105+x,175)
-    line(184+x,184,175+x,175)
+    line(6+x,96,15+x,105)
+    line(94+x,96,85+x,105)
+    line(6+x,185,15+x,175)
+    line(94+x,184,85+x,175)
     
 def draw():
     boxten(0) 
@@ -2128,8 +2128,7 @@ def draw():
         showCake = True 
 		
     if dist(x + 180, y, cakeX, cakeY) < 30:
-        showCake = False 
-    
+        showCake = False   
 ```	
 -------------------------------------------------------
 5. svg  Кораблик
