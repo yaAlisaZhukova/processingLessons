@@ -2071,27 +2071,25 @@ def draw():
       i = 0
    elif(frameCount%30==0): 
       i = i + 1 
-```
+``` 
 --------------------------------------------------------
-4. TODO: переписать с имиджами Алисы
---------------------------------------------------------
-5. День рождения слона
+4. День рождения слона
 - LenaPlay\sketch_10_image_elephant_birthday 
 - https://scratch.mit.edu/projects/1103624373/
 
 ```
 x = 130
 y = 400
+sc = 0
 cakeX = 680
 cakeY = 30
 showCake = True
 def setup(): 
-  global savanna 
-  global elephanta
-  global cake
+  global savanna, elephantA, elephantB, cake
   size(640, 640)
   savanna = loadImage("Savanna.png") 
-  elephant = loadImage("elephant-a.png")
+  elephantA = loadImage("elephant-a.png")
+  elephantB = loadImage("elephant-b.png")
   cake = loadImage("cake-a.png")
   
 def keyPressed():
@@ -2104,26 +2102,37 @@ def keyPressed():
        y = y - 5               
     if keyCode == DOWN:   
        y = y + 5
-	   
 def draw(): 
-   global cakeX, cakeY, showCake 
-   image(savanna, 0, 0, 640, 640) 
-   image(elephant, x, y, 200, 150)
+    global cakeX, cakeY, showCake, sc, imageNumber 
+    image(savanna, 0, 0, 640, 640)  
    
-   if showCake: 
-      image(cake, cakeX, cakeY, 200, 150)
+    sc = sc + 1 
+    if sc == 1: 
+        imageNumber = elephantA   
+    if sc == 60: 
+        imageNumber = elephantB  
+    if sc == 80:
+        sc = 0
+        
+    image(imageNumber, x, y, 200, 150)  
+   
+    if showCake: 
+        image(cake, cakeX, cakeY, 200, 150)
       
-   cakeX = cakeX - 1
-   if cakeX == 0:
-       cakeX = 680 
-       cakeY = random(50, 600)
-       showCake = True
-	   
-   if dist(x + 180, y, cakeX, cakeY) < 30:
-       showCake = False 
+    cakeX = cakeX - 1
+    if cakeX == 0:
+        cakeX = 680
+   
+    if cakeX == 680:
+        cakeY = random(50, 600)
+        showCake = True 
+		
+    if dist(x + 180, y, cakeX, cakeY) < 30:
+        showCake = False 
+    
 ```	
 -------------------------------------------------------
-6. svg  Кораблик
+5. svg  Кораблик
 C:\web\AlicaPython\AlisaCreativica\LenaPlay\sketch_10_sketch_Image
 
 ```	
@@ -2145,7 +2154,7 @@ LenaPlay\sketch_10_image_svg\ship.svg
    <polygon points="0,50 55,50 40,75 15,75" style="fill:blue;stroke:blue;stroke-width:3" /> 
 </svg>
 ------------------------------------------------------
-7. Движение корабликов
+6. Движение корабликов
 ```	
 circleList = [[10, 100], [320, 200], [520, 300]]
 def setup():
@@ -2164,6 +2173,97 @@ def draw():
             x[0] = -50
 ```	  		
 -------------------------------------------------------
+7. Алиса. Показ для родителей
+```
+#ГАЧА 3.0  
+sc = 0
+guy = 1
+imageX = 130
+def setup():
+    global one, two, three, four, five, six, seven, eight, nine, imageNumber
+    background(255)
+    one = loadImage ('1.png')
+    two = loadImage ('2.png')
+    three = loadImage ('3.png')
+    four = loadImage ('4.png')
+    five = loadImage ('5.png')
+    six = loadImage ('6.png')
+    seven = loadImage ('7.png')
+    eight = loadImage ('8.png')
+    nine = loadImage ('9.png')
+    imageNumber = two
+    size(600,600)
+     
+def draw(): 
+    global sc, guy, imageX
+    background(255)  
+    if keyPressed:
+        if key == '3':
+            guy = 3
+        if key == '2':
+            guy = 2
+        if key == '1':
+            guy = 1
+        if keyCode == LEFT:    
+            imageX = imageX - 1
+        if keyCode == RIGHT:    
+            imageX = imageX + 1
+    if guy == 1:
+        shelly()         
+    if guy == 2:
+        breeze()
+    if guy == 3:
+        toodles()
+        
+def shelly():
+    global sc, imageNumber, imageX 
+    sc = sc + 1 
+    if sc == 1: 
+        imageNumber = two  
+    if sc == 20: 
+        imageNumber = one  
+    if sc == 40: 
+        imageNumber = two 
+    if sc == 60: 
+        imageNumber = three  
+    if sc == 80:
+        sc = 0
+        
+    image(imageNumber,imageX,90,260,400) 
+      
+def breeze():
+    global sc, imageNumber, imageX
+    sc = sc + 1
+    if sc == 1:
+        imageNumber = four 
+    if sc == 20:
+        imageNumber = five 
+    if sc == 40:
+        imageNumber = six 
+    if sc == 60:
+        imageNumber = five 
+    if sc == 80:
+        sc = 0
+        
+    image(imageNumber,imageX,90,260,400)
+        
+def toodles():
+    global sc, imageNumber, imageX
+    sc = sc + 1
+    if sc == 1:
+        imageNumber = seven 
+    if sc == 20:
+        imageNumber = eight 
+    if sc == 40:
+        imageNumber = nine 
+    if sc == 60:
+        imageNumber = eight  
+    if sc == 80:
+        sc = 0
+        
+    image(imageNumber,imageX,90,260,400)     
+```
+---------------------------------------------------------
 7. #TODO: если сталкивается с пеньком, уменьшаем очки на 1
    #TODO: добавить бонус мешочки, до которых можно допрыгнуть
    #TODO: если очки будут равны нулю, то Game Over 
