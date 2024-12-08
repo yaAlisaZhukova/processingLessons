@@ -2018,14 +2018,14 @@ def draw():
 2. - Котенок, который машет лапой
 - Сохраняем несколько имиджей в лист
 -  Меняем вызов имиджа (не на каждом вызове метода draw, а только на каждом трицатом)
+-LenaPlay\sketch_10_sketch_Image
 ```
 i = 0 
+catImageList = []
 
 def setup():  
   global catImageList 
-  size(640, 360)
-  
-  catImageList = []
+  size(640, 360)  
   catRight = loadImage("catRight.png") 
   catUp = loadImage("catUp.png") 
   
@@ -2049,12 +2049,12 @@ def draw():
 -  Меняем вызов имиджа (не на каждом вызове метода draw, а только на каждом трицатом)
 ```
 i = 0 
+catImageList = []
 
 def setup():  
   global catImageList 
-  size(640, 360)
+  size(640, 360) 
   
-  catImageList = []
   catRight = loadImage("catRight.png") 
   catUp = loadImage("catUp.png") 
   
@@ -2073,7 +2073,9 @@ def draw():
       i = i + 1 
 ```
 --------------------------------------------------------
-4. День рождения слона
+4. TODO: переписать с имиджами Алисы
+--------------------------------------------------------
+5. День рождения слона
 - LenaPlay\sketch_10_image_elephant_birthday 
 - https://scratch.mit.edu/projects/1103624373/
 
@@ -2121,7 +2123,7 @@ def draw():
        showCake = False 
 ```	
 -------------------------------------------------------
-5. svg  Кораблик
+6. svg  Кораблик
 C:\web\AlicaPython\AlisaCreativica\LenaPlay\sketch_10_sketch_Image
 
 ```	
@@ -2143,7 +2145,7 @@ LenaPlay\sketch_10_image_svg\ship.svg
    <polygon points="0,50 55,50 40,75 15,75" style="fill:blue;stroke:blue;stroke-width:3" /> 
 </svg>
 ------------------------------------------------------
-6. Движение корабликов
+7. Движение корабликов
 ```	
 circleList = [[10, 100], [320, 200], [520, 300]]
 def setup():

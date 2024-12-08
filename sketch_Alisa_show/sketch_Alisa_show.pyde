@@ -1,8 +1,9 @@
 #ГАЧА 3.0  
 sc = 0
 guy = 1
+imageX = 130
 def setup():
-    global one, two, three, four, five, six, seven, eight, nine
+    global one, two, three, four, five, six, seven, eight, nine, imageNumber
     background(255)
     one = loadImage ('1.png')
     two = loadImage ('2.png')
@@ -13,10 +14,12 @@ def setup():
     seven = loadImage ('7.png')
     eight = loadImage ('8.png')
     nine = loadImage ('9.png')
+    imageNumber = two
     size(600,600)
      
 def draw(): 
-    global sc, guy  
+    global sc, guy, imageX
+    background(255)  
     if keyPressed:
         if key == '3':
             guy = 3
@@ -24,6 +27,10 @@ def draw():
             guy = 2
         if key == '1':
             guy = 1
+        if keyCode == LEFT:    
+            imageX = imageX - 1
+        if keyCode == RIGHT:    
+            imageX = imageX + 1
     if guy == 1:
         shelly()         
     if guy == 2:
@@ -32,59 +39,49 @@ def draw():
         toodles()
         
 def shelly():
-    global sc
-    sc = sc + 1
-    if sc == 1:
-        background(255)
-        one = loadImage ('2.png')
-        image(one,120,80,321,411)
-    if sc == 20:
-        background(255)
-        one = loadImage ('1.png')
-        image(one,170,100,242,378)
-    if sc == 40:
-        background(255)
-        one = loadImage ('2.png')
-        image(one,120,80,321,411)
-    if sc == 60:
-        background(255)
-        one = loadImage ('3.png')
-        image(one,160,90,257,401)
+    global sc, imageNumber, imageX 
+    sc = sc + 1 
+    if sc == 1: 
+        imageNumber = two  
+    if sc == 20: 
+        imageNumber = one  
+    if sc == 40: 
+        imageNumber = two 
+    if sc == 60: 
+        imageNumber = three  
     if sc == 80:
         sc = 0
         
+    image(imageNumber,imageX,90,260,400) 
+      
 def breeze():
-    global sc
+    global sc, imageNumber, imageX
     sc = sc + 1
     if sc == 1:
-        background(255) 
-        image(four,130,90,271,387)
+        imageNumber = four 
     if sc == 20:
-        background(255) 
-        image(five,130,90,273,385)
+        imageNumber = five 
     if sc == 40:
-        background(255) 
-        image(six,130,90,260,390)
+        imageNumber = six 
     if sc == 60:
-        background(255) 
-        image(five,130,90,273,385)
+        imageNumber = five 
     if sc == 80:
         sc = 0
+        
+    image(imageNumber,imageX,90,260,400)
         
 def toodles():
-    global sc
+    global sc, imageNumber, imageX
     sc = sc + 1
     if sc == 1:
-        background(255) 
-        image(seven,145,100,228,374)
+        imageNumber = seven 
     if sc == 20:
-        background(255) 
-        image(eight,135,100,266,370)
+        imageNumber = eight 
     if sc == 40:
-        background(255) 
-        image(nine,145,100,211,372)
+        imageNumber = nine 
     if sc == 60:
-        background(255) 
-        image(eight,135,100,266,370)
+        imageNumber = eight  
     if sc == 80:
         sc = 0
+        
+    image(imageNumber,imageX,90,260,400)     
