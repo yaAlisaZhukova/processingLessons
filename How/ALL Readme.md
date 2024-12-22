@@ -1883,7 +1883,7 @@ myCarY = 500
 def setup():
     size(600, 600) 
     
-def car(x,y):  
+def blueCar(x,y):  
     fill(155)
     circle(2+x, 18+y, 18) 
     circle(54+x, 18+y, 18)
@@ -1903,16 +1903,20 @@ def myCar(x,y):
     fill(255, 166, 183)
     rect(x, y, 50, 120, 18, 18, 6, 6)
     fill(155) 
-    rect(5+x, 10+y, 40, 28, 18, 18, 8, 8)    
+    rect(5+x, 10+y, 40, 28, 18, 18, 8, 8)
+
+def road():
+    fill(100) 
+    rect(135,0,360,600) #дорога 
     
-def carMove():  
     for i in range(0,6):
        fill(255)
        noStroke()
        rect(width/2,lineBetweenRoads[i],20,100) #белая дорожная разметка
-   
+	   
+def carMove(): 
     for y in carListY:
-        car(150, y[0])
+        blueCar(150, y[0])
         y[0] = y[0] + 1
         if y[0] == 1000:
             y[0] = -150 
@@ -1920,7 +1924,7 @@ def carMove():
             noLoop()
 			
     for y in carListY2:
-        car(235, y[0])
+        blueCar(235, y[0])
         y[0] = y[0] + 1
         if y[0] == 1000:
             y[0] = -150 
@@ -1928,7 +1932,7 @@ def carMove():
             noLoop()
 			
     for y in carListY3: 
-        car(335, y[0] + dy)
+        blueCar(335, y[0] + dy)
         y[0] = y[0] + 1
         if y[0] == 1000:
             y[0] = -150 
@@ -1936,7 +1940,7 @@ def carMove():
             noLoop() 
 			
     for y in carListY4:
-        car(435, y[0] + dy)
+        blueCar(435, y[0] + dy)
         y[0] = y[0] + 1
         if y[0] == 1000:
             y[0] = -150 
@@ -1952,8 +1956,7 @@ def keyPressed():
                                         
 def draw():
     background(155)
-    fill(100) 
-    rect(135,0,360,600) #дорога 
+    road()
     carMove()
     myCar(myCarX, myCarY)   
 ```
@@ -2102,6 +2105,7 @@ def keyPressed():
        y = y - 5               
     if keyCode == DOWN:   
        y = y + 5
+	   
 def draw(): 
     global cakeX, cakeY, showCake, sc, imageNumber 
     image(savanna, 0, 0, 640, 640)  

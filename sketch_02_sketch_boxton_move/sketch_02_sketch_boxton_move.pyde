@@ -64,8 +64,7 @@ def boxten(x):
     line(94+x,184,85+x,175)
 
 def keyPressed(): 
-    global circleY
-    global circleX 
+    global circleY, circleX 
      
     if (keyCode == DOWN ):
         circleY = circleY + 2
@@ -78,8 +77,7 @@ def keyPressed():
     
 def draw():
     background(125)
-    global boxtenX
-    global boxtenSpeedX
+    global boxtenX, boxtenSpeedX
     global circleY, goldenKeyX, goldenKeyY, goldenKeyTaken
     textSize(40)
     
@@ -97,16 +95,17 @@ def draw():
     
     circle(circleX, circleY, 40)
     
-    if dist(circleX, circleY, goldenKeyX, goldenKeyY+30) < 20:
+    if dist(circleX, circleY, goldenKeyX, goldenKeyY+30) < 30:
        goldenKeyTaken = True
     
     if goldenKeyTaken:  
        goldenKey(circleX, circleY)
        if circleX > 500 and circleY > 400: 
-          text(u"Вы победили", 200, 300)
+          text(u"Вы победили", 200, 300) 
           noLoop() 
     else:
-       goldenKey(goldenKeyX, goldenKeyY)     
+       goldenKey(goldenKeyX, goldenKeyY)
+       
         
     
     
