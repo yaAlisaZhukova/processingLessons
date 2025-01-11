@@ -1,6 +1,269 @@
 Forum Processsing Python
 https://discourse.processing.org/
 *****************************************************************************************************************
+                                                 Коллизии
+*****************************************************************************************************************
+1. CircleCircle
+
+```
+def collideCircleCircle(x, y,d, x2, y2, d2):
+#2d
+# dist()  — функция вычисления расстояния между двумя точками
+  if dist(x,y,x2,y2) <= (d/2)+(d2/2):
+    return True
+  else:
+    return False
+
+
+def setup():
+    size(600, 400)
+    
+def draw():
+    background(100)
+    if collideCircleCircle(300, 200, 50, mouseX, mouseY, 100):
+        fill(255, 0, 0)
+    else:
+        fill(255)
+    ellipse(300, 200, 50, 50)
+    ellipse(mouseX, mouseY, 100, 100)
+```
+---------------------------------------------------------------
+2. LineCircle 
+
+```
+def collideLineCircle( x1,  y1,  x2,  y2,  cx,  cy,  diameter):
+  # is either end INSIDE the circle?
+  # if so, return true immediately
+  
+    def collidePointCircle(x, y, cx, cy, d):
+        #2d
+        if dist(x,y,cx,cy) <= d/2:
+            return True
+        else:
+            return False
+        
+    def collidePointLine(px,py,x1,y1,x2,y2, buffer):
+        # get distance from the point to the two ends of the line
+        d1 = dist(px,py, x1,y1);
+        d2 = dist(px,py, x2,y2);
+    
+        #get the length of the line
+        lineLen = dist(x1,y1, x2,y2);
+    
+        # since floats are so minutely accurate, add a little buffer zone that will give collision
+        if buffer == None:
+            buffer = 0.1   # higher # = less accurate
+    
+        #if the two distances are equal to the line's length, the point is on the line!
+        # note we use the buffer here to give a range, rather than one #
+        if d1+d2 >= lineLen-buffer and d1+d2 <= lineLen+buffer:
+            return True
+        else:
+            return False
+
+        
+    inside1 = collidePointCircle(x1,y1, cx,cy,diameter)
+    inside2 = collidePointCircle(x2,y2, cx,cy,diameter)
+    if inside1 or inside2:
+        return True
+    
+    # get lengthgth of the line
+    distX = x1 - x2
+    distY = y1 - y2
+    length = sqrt( (distX*distX) + (distY*distY) );
+    
+    # get dot product of the line and circle
+    dot = ( ((cx-x1)*(x2-x1)) + ((cy-y1)*(y2-y1)) ) / pow(length,2)
+    
+    # find the closest point on the line
+    closestX = x1 + (dot * (x2-x1))
+    closestY = y1 + (dot * (y2-y1))
+    
+    # is this point actually on the line segment?
+    # if so keep going, but if not, return false
+    onSegment = collidePointLine(closestX,closestY,x1,y1,x2,y2,0.1);
+    if not onSegment:
+        return False
+    
+    # draw a debug circle at the closest point on the line
+    #if _collideDebug:
+        #ellipse(closestX, closestY,10,10)
+    
+    
+    # get distance to closest point
+    distX = closestX - cx
+    distY = closestY - cy
+    distance = this.sqrt( (distX*distX) + (distY*distY) )
+    
+    if distance <= diameter/2:
+        return True
+    else:
+        return False
+
+
+
+
+def setup():
+    size(600, 400)
+    
+def draw():
+    background(100)
+    if collideLineCircle(300, 200, 50, 50,  mouseX, mouseY, 100):
+        fill(255, 0, 0)
+    else:
+        fill(255)
+    line(300, 200, 50, 50)
+    ellipse(mouseX, mouseY, 100, 100)
+```
+-------------------------------------------------------
+3. RectCircle
+```
+def collideRectCircle(rx, ry, rw, rh, cx, cy, diameter):
+  #2d
+  # временные переменные для установки краёв для тестирования
+  # rectmode — CORNER, ellipseMode — CENTER, то есть оба по-умолчанию
+  testX = cx
+  testY = cy
+
+  # which edge is closest?
+  if cx < rx:
+    testX = rx       # Левый край
+  elif cx > rx+rw:
+    testX = rx+rw     # правый край
+
+  if cy < ry:
+    testY = ry       # верхний край
+  elif cy > ry+rh:
+    testY = ry+rh   # нижний край
+
+  # получить расстояние от ближайших краев с помощью processing функции dist()
+  distance = dist(cx,cy,testX,testY) 
+
+  # если расстояние меньше радиуса, столкновение!
+  if distance <= diameter/2:
+    return True
+  else:
+    return False
+
+
+def setup():
+    size(600, 400)
+    
+def draw():
+    background(100)
+    if collideRectCircle(300,200, 100, 50, mouseX, mouseY, 100):
+        fill(255,0,0)
+    else:
+        fill(255)
+    rect(300,200, 100, 50)
+    ellipse(mouseX, mouseY, 100, 100)
+```
+----------------------------------------------------    
+4. Функция-детектор соприкосновения прямоугольника и прямоугольника
+
+```
+def collideRectRect (x, y, w, h, x2, y2, w2, h2):
+  # работает правильно, даже если rectMode стоит CENTER
+    if (x + w >= x2) and  (x <= x2 + w2) and  (y + h >= y2) and (y <= y2 + h2):
+        return True
+    else:
+        return False
+
+def setup():
+    size(600, 400)
+    
+def draw():
+    background(100)
+    rectMode(CENTER)
+    if collideRectRect(300,200, 100, 50, mouseX, mouseY, 100, 50):
+        fill(255,0,0)
+    else:
+        fill(255)
+    rect(300,200, 100, 50)
+    rect(mouseX, mouseY, 100, 50)
+```	
+---------------------------------------------------------
+5. PointCircle
+```
+def collidePointCircle(x, y, cx, cy, d):
+    if dist(x,y,cx,cy) <= d/2:
+        return True
+    else:
+        return False
+
+def setup():
+    size(600, 400)
+    
+def draw():
+    background(100)
+    if collidePointCircle(mouseX, mouseY, 300, 200, 70):
+        fill(255, 0, 0)
+    else:
+        fill(255)
+    ellipse(300, 200, 70, 70)
+    strokeWeight(10)
+    point(mouseX, mouseY)
+    strokeWeight(1)
+```	
+----------------------------------------------------------
+6. PointRect
+```
+def collidePointRect(pointX, pointY, x, y, xW, yW):
+#если точка находится между краёв прямоугольника:
+    if (pointX >= x) and (pointX <= x + xW) and (pointY >= y) and (pointY <= y + yW): 
+        return True
+    return False
+
+def setup():
+    size(600, 400)
+    
+def draw():
+    background(100)
+    strokeWeight(10)
+    if collidePointRect(mouseX, mouseY, 200, 300, 60, 70):
+        fill(255, 0, 0)
+    else:
+        fill(255)
+    point(mouseX, mouseY)
+    rect(200, 300, 60, 70)
+```	
+----------------------------------------------------
+7. нажимаем на кнопки - показываем или прячем кружок
+
+```  
+showCircle = False
+def collidePointRect(pointX, pointY, x, y, xW, yW):
+#если точка находится между краёв прямоугольника:
+    if (pointX >= x) and (pointX <= x + xW) and (pointY >= y) and (pointY <= y + yW): 
+        return True
+    return False 
+
+def setup():
+    size(600, 400)
+    
+def draw():
+    global showCircle
+    background(100) 
+    if collidePointRect(mouseX, mouseY, 200, 330, 150, 30) and mousePressed:
+        showCircle = True
+    if collidePointRect(mouseX, mouseY, 400, 330, 150, 30) and mousePressed:
+        showCircle = False  
+    
+    fill(132, 211, 183)  
+    rect(200, 330, 150, 30, 7)
+    fill(0)
+    textSize(16)  
+    text(u'Показать кружок',205, 350 )
+    
+    fill(247,112,128)  
+    rect(400, 330, 150, 30, 7)
+    fill(0)
+    text(u'Спрятать кружок',405, 350) 
+    
+    if showCircle:
+        circle(20, 20, 20)  
+```		
+*****************************************************************************************************************
                                                 Lesson 1
 *****************************************************************************************************************
 ![alt text](https://github.com/Elenn/processing_lessons/blob/main/How/01_Lesson_Circle.png?raw=true)
@@ -2729,6 +2992,7 @@ def draw():
  
 C:\web\AlicaPython\AlisaCreativica\Skillspace\4_1\kvadrRyadColor.pyde
 
+```
 x = 0
 
 def setup():
@@ -2743,6 +3007,7 @@ def draw():
         fill(random(360), 100, 100)
         rect(x, y, 25, 25)
     x += 5
+```	
 -----------------------------------------------------
 4. 
 ТЗ 1. Слева направо, от левого края холста, идёт ряд квадратов разных размеров.
@@ -2828,20 +3093,15 @@ def draw():
     i = 0
     space = 50
     dSpace = 10  
-    for x in 5, 15, 20, 50, 80: 
+    for x in 1, 2, 3, 4, 5, 6, 7: 
         fill(0, 255, 0)
-        ellipse(space, space, x, x) 
+        ellipse(space, space, 30, 30) 
         i +=1
         space += 50 + dSpace*i  
 ```
 --------------------------------------------------------------------------------------
 8.
 2б. То же самое, но сделать через translate/
-ТЗ 3. Два ряда квадратов, вертикальный и горизонтальный, образуют крест. И там и
-там 5 квадратов, но центральные накладываются друг на друга и находятся ровно в
-центре холста. Размеры квадратов 50 на 50, расстояние между левыми верхними
-углами соседних квадратов в ряду 100. Цвет любой на выбор, кроме ранее
-использованных. Сколько циклов потребуется для такого?
 
 def setup():
     size(600, 600) 
@@ -2850,14 +3110,36 @@ def draw():
     i = 0
     space = 50
     dSpace = 10  
-    for x in 5, 15, 20, 50, 80:
+    for x in 1, 2, 3, 4, 5, 6, 7:
         push() 
         fill(0, 255, 0)
         translate(space, space)
-        ellipse(0, 0, x, x)
+        ellipse(0, 0, 30, 30)
         pop() 
         i +=1
         space += 50 + dSpace*i
+--------------------------------------------------------------------------------------
+ТЗ 3. Два ряда квадратов, вертикальный и горизонтальный, образуют крест. И там и
+там 5 квадратов, но центральные накладываются друг на друга и находятся ровно в
+центре холста. Размеры квадратов 50 на 50, расстояние между левыми верхними
+углами соседних квадратов в ряду 100. Цвет любой на выбор, кроме ранее
+использованных. Сколько циклов потребуется для такого?
+
+``` 
+def setup():
+    size(600, 600) 
+    
+def draw():
+    global space
+    for x in 30, 130, 230, 330, 430:
+        fill(255, 0, 0)
+        rect(x, 230, 50, 50)
+        
+    for y in 30, 130, 230, 330, 430:
+        fill(255, 0, 0)
+        rect(230, y, 50, 50)    
+         
+``` 
 -------------------------------------------------------------
 9.
 ТЗ 4а. Вертикальный ряд квадратов из 12 квадратов одинаковых размеров находится
@@ -2865,6 +3147,7 @@ def draw():
 на каждом кадре случайный и предыдущие версии квадратов не стираются. Сделать
 через translate	
 
+``` 
 x = 0
 
 def setup():
@@ -2879,10 +3162,12 @@ def draw():
         fill(random(360), 100, 100) 
         rect(0, y, 25, 25)
     x += 5
+``` 
 --------------------------------------------------------------------
 10.
 ТЗ 4б. То же самое, но без использования translate	
 
+``` 
 x = 0
 
 def setup():
@@ -2896,11 +3181,13 @@ def draw():
         fill(random(360), 100, 100)
         rect(x, y, 25, 25)
     x += 5 
+``` 
 -------------------------------------------------------------------------
 11.
 ТЗ 4в. То же самое, но цвет случайный на каждом кадре и при этом одинаковый для
 всех квадратов на одном кадре, а не у каждого свой.
 
+``` 
 x = 0
 
 def setup():
@@ -2914,6 +3201,7 @@ def draw():
     for y in 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550: 
         rect(x, y, 25, 25)
     x += 5 
+``` 
 -----------------------------------------------------------------------------------
 12.
 ТЗ 5. Людям с вероятностью эпилептических припадков поставить frameRate(1) или
@@ -2921,6 +3209,7 @@ def draw():
 на холсте каждый кадр в случайных местах появляется 9 кругов случайных цвета и
 размера.
 
+``` 
 def setup():
     size(600, 600) 
     colorMode(HSB, 360, 100, 100)
@@ -2933,6 +3222,7 @@ def draw():
         fill(random(360), 100, 100)
         circleSize = random(0,100)
         ellipse(random(0,600), random(0,600), circleSize, circleSize)
+``` 
 -------------------------------------------------------------------------------------
 13.	
 ТЗ 6. Вот такая снежинка, которая едет справа налево. Гораздо проще будет, если
@@ -2940,6 +3230,7 @@ def draw():
 центре холста. Цвет должен плавно меняться по ходу дела, сбрасываясь время от 
 времени к начальному состоянию
 
+``` 
 xAll = 300
 myColor = 0
 def setup():
@@ -2972,11 +3263,13 @@ def draw():
         xAll = 550
     if myColor > 360:
         myColor = 0
+``` 
 ----------------------------------------------------------		
 14.
 1) Ряд кругов от одного левого до правого края, минимум 5 кругов. Ряд спускается
 сверху вниз
 
+``` 
 x = 20
 
 def setup():
@@ -2987,11 +3280,13 @@ def draw():
     global x  
     ellipse(x, x, 25, 25) 
     x +=30 
+``` 
 -------------------------------------------------------
 15.	
 2) Диагональный ряд кругов(слева направо и сверху вниз). Движется от левого
 нижнего угла к правому верхнему
 
+``` 
 x = 20
 y = 580
 def setup():
@@ -3003,10 +3298,12 @@ def draw():
     ellipse(x, y, 25, 25) 
     x +=30
     y -=30
+``` 	
 ----------------------------------------------------------------------------------	
 3) Вертикальный ряд кругов, на цвет которых воздействует мышь. Чем мышь левее,
 тем их цвет темнее, чем правее, тем цвет светлее
 
+``` 
 y = 20
 colorValue = 0
 def setup():
@@ -3023,9 +3320,11 @@ def draw():
     fill(colorValue/2) 
     for y in 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15:
         ellipse(20, y*40, 30, 30)
+``` 
 ---------------------------------------------------------------	 
 4) Диагональный ряд квадратов, размер квадратов растёт с каждым кадром
 
+``` 
 x = 20
 rectSize = 20 
 def setup():
@@ -3039,6 +3338,7 @@ def draw():
     rect(x, x, rectSize, rectSize)
     x +=40
     rectSize +=5
+``` 	
 -------------------------------------------------------------------
 *******************************************************************************************************************************
                                                    Такой удобный range
@@ -3057,9 +3357,11 @@ range(11, 1, -2) сгенерирует набор 11, 9, 7, 5, 3
 Пример объяснения
 Этот код
 
+``` 
 def draw():
     for x in 0, 20, 40, 60, 80, 100:
         rect(x, 0, 20, 20)
+``` 		
 
 Изобразит такой код:
 Смотрите, видите, каждое следующее число больше предыдущего на 20. А сможете
@@ -3068,9 +3370,11 @@ def draw():
 К счастью, у нас есть функция, которая может генерировать такую
 последовательность чисел за нас.
 
+``` 
 def draw():
     for x in range(0, 101, 20):
         rect(x, 0, 20, 20)
+``` 		
 
 Функция range() здесь возвращает набор чисел от 0 до 100. Не до 101! До 100. Всегда
 оно берёт на 1 меньше второго аргумента. Итак, числа от 0 до 100. А что означает
@@ -3078,17 +3382,21 @@ def draw():
 предыдущего на 20.
 А что будет, если написать вот такой код?
 
+``` 
 def draw():
     for x in range(0, 100):
         rect(x, x, 20, 20)
+``` 
 		
 Будет так
 Видите, ошибки нет. Кто понял, как это работает? Если шаг, третий аргумент, не
 указан, он равняется 1. Но погодите! Если написать так
 
+``` 
 def draw():
     for x in range(100):
         rect(x, x, 20, 20)
+``` 
 		
 Будет то же самое.
 Если аргумент у range() всего один, то начало автоматически считается 0, шаг 1. А
@@ -3101,6 +3409,7 @@ def draw():
 Задания по теме «Такой удобный range()»
 ТЗ 1.а. С помощью for и range изобразите вот такой круг
 
+``` 
 y = 0 
 def setup():
     size(600, 600) 
@@ -3112,7 +3421,8 @@ def draw():
     for x in range(0, 600, 20):
         rect(x, y, 20, 20)
         
-    y += 20        
+    y += 20
+``` 	
 ---------------------------------------------------------
 4.	
 ТЗ 1.б. Мозаика. То же самое, но каждую секунду каждый из квадратиков заполняется
