@@ -3783,6 +3783,8 @@ def setup():
 rb.gy/inzu5s
 
 ```
+circle_diameter = 30
+circles = []
 def setup():
     size(600, 400)
     noStroke()
