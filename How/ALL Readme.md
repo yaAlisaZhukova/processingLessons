@@ -2882,31 +2882,9 @@ def draw():
         text("GAME OVER", 20, height/2)    
 
 ```
-------------------------------------------------------
-2.  #рисуем змейку
+------------------------------------------------------ 
+2. #находим значение последнего элемента в listX
 
-boxSize = 20
-listX = [10,11,12]
-listY = [5,5,5] 
- 
-def setup():
-    size(600,600)  
-    
-def draw(): 
-    background(255)
-    
-    for x in range(0,600,20):
-        for y in range(0,600,20):
-            rect(x,y,20,20) 
-     
-    #рисуем змейку 
-    for i in range(0, len(listX)): 
-        push() 
-        fill (0,255,0) 
-        rect(listX[i]*boxSize, listY[i]*boxSize, boxSize, boxSize)
-        pop()
--------------------------------------------------------
-3.
 boxSize = 20
 listX = [10,11,12]
 listY = [5,5,5]	
@@ -2936,7 +2914,7 @@ print(listX[2])
 print(listX[len(listX) - 1])
 
 -------------------------------------------------------
-4. это через занятие - не сегодня
+3.   это через занятие - не сегодня
 
 надо добавить в конец листа listX элемен, со значением
 на еденицу больще, чем последний элемен листа
@@ -2966,7 +2944,31 @@ listX.append(listX[len(listX)-1] + 1)
 listY.append(listY[len(listY)-1] + 0)
 
 print(listX)
-print(listY) 
+print(listY)
+-------------------------------------------------
+4. 
+#рисуем змейку
+
+boxSize = 20
+listX = [10,11,12]
+listY = [5,5,5] 
+ 
+def setup():
+    size(600,600)  
+    
+def draw(): 
+    background(255)
+    
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            rect(x,y,20,20) 
+     
+    #рисуем змейку 
+    for i in range(0, len(listX)): 
+        push() 
+        fill (0,255,0) 
+        rect(listX[i]*boxSize, listY[i]*boxSize, boxSize, boxSize)
+        pop()  
 -------------------------------------------------------
 5. надо добавить в конец листа listX элемен, со значением
 на еденицу больще, чем последний элемен листа
