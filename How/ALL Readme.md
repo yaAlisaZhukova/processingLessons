@@ -3805,7 +3805,7 @@ def createCircleList():
         while col < 4:
             x = col * circle_diameter  
             y = row * circle_diameter  
-            circles.append([x,y,0])
+            circles.append([x,y,False])
             col = col + 1
         row =  row + 1    
 
@@ -3814,7 +3814,7 @@ def draw():
     
     # Рисуем круги
     for circle in circles:
-        if circle[2] == 1:
+        if circle[2]:
             fill(255, 0, 0)  # Цвет активного круга
         else:
             fill(200)  # Цвет неактивного круга
@@ -3824,10 +3824,9 @@ def mousePressed():
     # Проверяем, попал ли клик в круг
     for circle in circles: 
         mouseInCircle = collidePointCircle(mouseX,mouseY,circle[0],circle[1],30)
-        if mouseInCircle and circle[2] == 0:
-            circle[2] = 1
-        elif mouseInCircle and circle[2] == 1:
-            circle[2] = 0
+        if mouseInCircle:
+            circle[2] = not circle[2]
+         
 ```			
 ----------------------------------------------
 6. ТЗ 5. Ряд из треугольников через While. На их цвет воздействует положение мыши на
