@@ -2883,32 +2883,92 @@ def draw():
 
 ```
 ------------------------------------------------------
-boxSize = 20
-x = [10,11,12]
-y = [5,5,5] 
+2.  #рисуем змейку
 
-sc = 0
+boxSize = 20
+listX = [10,11,12]
+listY = [5,5,5] 
+ 
 def setup():
-    size(600,600)     
-	
-	for i in range(0, 600, boxSize):
-      line(i, 0, i, 600)
-    
-    for i in range(0, 600, boxSize):
-      line(0, i, 600, i) 
+    size(600,600)  
     
 def draw(): 
     background(255)
-    global sc 
+    
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            rect(x,y,20,20) 
      
     #рисуем змейку 
-    for i in range(0, len(x)):  
+    for i in range(0, len(listX)): 
+        push() 
         fill (0,255,0) 
-        rect(x[i]*boxSize, y[i]*boxSize, boxSize, boxSize);
+        rect(listX[i]*boxSize, listY[i]*boxSize, boxSize, boxSize)
+        pop()
 -------------------------------------------------------
+3.
 boxSize = 20
-x = [10,11,12]
-y = [5,5,5]
+listX = [10,11,12]
+listY = [5,5,5]	
+
+def setup():
+    size(600,600)
+
+#находим значение последнего элемента в listX
+print(listX)	
+print(listX[0])	
+print(listX[1])	
+print(listX[2])	
+print(len(listX))#3 а нам надо на еденицу меньше для 
+
+ 
+print(len(listX) - 1) 
+
+print(listX[2])
+print(listX[len(listX) - 1])
+
+-------------------------------------------------------
+4. это через занятие - не сегодня
+
+надо добавить в конец листа listX элемен, со значением
+на еденицу больще, чем последний элемен листа
+
+надо добавить в конец листа listY элемен, со значением
+таким же, как последний элемен листа
+
+boxSize = 20
+listX = [10,11,12]
+listY = [5,5,5]	
+
+def setup():
+    size(600,600)
+
+#находим значение последнего элемента в listX 
+print(len(listX) - 1) 
+
+print(listX[2])
+print(listX[len(listX) - 1])
+
+#надо добавить в конец листа элемен, со значением
+#на еденицу больще, чем последний элемен листа
+
+print(listX[len(listX) - 1] + 1)
+
+listX.append(listX[len(listX)-1] + 1)
+listY.append(listY[len(listY)-1] + 0)
+
+print(listX)
+print(listY) 
+-------------------------------------------------------
+5. надо добавить в конец листа listX элемен, со значением
+на еденицу больще, чем последний элемен листа
+
+надо добавить в конец листа listY элемен, со значением
+таким же, как последний элемен листа
+
+boxSize = 20
+listX = [10,11,12]
+listY = [5,5,5]
 dx = 1 
 dy = 0
 
@@ -2919,24 +2979,56 @@ def setup():
 def draw(): 
     background(255)
     global sc
-    for i in range(0, 600, boxSize):
-      line(i, 0, i, 600)
-    
-    for i in range(0, 600, boxSize):
-      line(0, i, 600, i)
+  
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            fill (255)
+            rect(x,y,20,20)
       
     sc = sc + 1 
     if sc == 18: 
-         x.append(x[len(x)-1] + dx)
-         y.append(y[len(y)-1] + dy)  
+         listX.append(listX[len(listX)-1] + dx)
+         listY.append(listY[len(listY)-1] + dy)  
     if sc == 19:
         sc = 0  
      
     #рисуем змейку 
-    for i in range(0, len(x)):  
+    for i in range(0, len(listX)):  
         fill (0,255,0) 
-        rect(x[i]*boxSize, y[i]*boxSize, boxSize, boxSize);
+        rect(listX[i]*boxSize, listY[i]*boxSize, boxSize, boxSize)
 -----------------------------------------------------
+6. Сделали на занятии:
+Добавляем в listX значение на еденицу больше, чем значение последнего элемента листа (7+1)
+Добавляем в listY то же значение, что и значение последнего элемента листа (20)
+```
+listX = [5,6,7]
+listY = [20,20,20]
+sc = 0
+
+def setup():
+    size(600,600)
+    
+def draw():
+    global sc, listX, listY
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+		    fill(250)
+            rect(x,y,20,20)
+    
+    sc = sc + 1
+    if sc == 18:
+        listX.append(listX[len(listX)-1]+1)
+        listY.append(listY[len(listY)-1]+0) 
+    if sc == 19:
+       sc = 0 
+       
+    for z in range(0,len(listX)): 
+        fill(0,250,0)
+        rect(listX[z]*20,listY[z]*20,20,20)
+```		
+-----------------------------------------------------
+7. # удаляем хвост
+
 boxSize = 20
 x = [10,11,12]
 y = [5,5,5]
@@ -2971,7 +3063,7 @@ def draw():
         fill (0,255,0) 
         rect(x[i]*boxSize, y[i]*boxSize, boxSize, boxSize);
 ----------------------------------------------------------------		
-2. Таймер:
+8. Таймер:
 
 ```
 # метод timer меняет значение глобальной переменной timerValue
@@ -3678,6 +3770,37 @@ def draw():
 *******************************************************************************************************************************
 1.
 def setup():
+    size(600,600)
+    x = 0
+    while x < 600:
+        line(x,599,x,x)    
+        x = x + 2
+-----------------------------
+listX = [5,6,7]
+listY = [20,20,20]
+sc = 0
+
+def setup():
+    size(600,600)
+    
+def draw():
+    global sc, listX, listY
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            rect(x,y,20,20)
+    
+    sc = sc + 1
+    if sc == 18:
+        listX.append(listX[len(listX)-1]+1)
+    
+    for z in range(0,len(listX)):
+        push()
+        fill(0,250,0)
+        rect(listX[z]*20,listY[z]*20,20,20)
+        pop()
+------------------------------------------		
+1.
+def setup():
     size(900, 500)
     x = 0
     while x < 900:
@@ -3775,9 +3898,8 @@ def setup():
         y = y - 30
         x2 = x2 + 30
         pop()  
-
-------------------------------------------------------
-5. ТЗ 4. Три ряда кругов, где нужно кликнуть, чтобы поменять цвет, а при снятии клика
+------------------------------------------------------  
+ТЗ 4. Три ряда кругов, где нужно кликнуть, чтобы поменять цвет, а при снятии клика
 цвет исчезает
 Вот ссылки на функции коллизий: shorturl.at/syQS1
 rb.gy/inzu5s
@@ -4036,6 +4158,66 @@ def draw():
 квадрат, треугольник и круг, узор окрашен в разные оттенки
 одного цвета, от центра к краю темнеет(лучше использовать
 модель HSB)
+
+ 
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+def draw():
+  global angle
+  background(255)
+  translate(300, 200)
+  
+  fill(200,65,95)
+  ellipse(0, 0, 20, 20)  
+  
+  triangle(-16, -110, 8, -110,  -3, -150)
+  for i in range(8): 
+      
+      fill(200,95,80)  
+      rect(-10, -40, 18, 18)
+      
+      fill(200,60,60) 
+      ellipse(-3, -80, 20, 40)
+      
+      fill(200,80,40)  
+      triangle(-16, -110, 8, -110,  -3, -150)
+      
+      rotate(radians(360/8)) 
+---------------------------------------------------
+ТЗ 2. while: Сделать два проекта, и через for и через while.
+Примерно такой узор — в каждом луче примерно такие
+квадрат, треугольник и круг, узор окрашен в разные оттенки
+одного цвета, от центра к краю темнеет(лучше использовать
+модель HSB)
+ 
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+def draw():
+  global angle
+  background(255)
+  translate(300, 200)
+  
+  fill(200,65,95)
+  ellipse(0, 0, 20, 20)  
+  
+  triangle(-16, -110, 8, -110,  -3, -150)
+  i = 0 
+  while i < 9:
+      i = i + 1  
+      
+      fill(200,95,80)  
+      rect(-10, -40, 18, 18)
+      
+      fill(200,60,60) 
+      ellipse(-3, -80, 20, 40)
+      
+      fill(200,80,40)  
+      triangle(-16, -110, 8, -110,  -3, -150)
+      
+      rotate(radians(360/8)) 
+  
 
 -------------------------------------------------
 ТЗ 3.
