@@ -2918,10 +2918,18 @@ def setup():
 print(listX)	
 print(listX[0])	
 print(listX[1])	
-print(listX[2])	
-print(len(listX))#3 а нам надо на еденицу меньше для 
+print(listX[2])  #последний элемент нащего листа
 
- 
+print(len(listX))#3 а нам надо на еденицу меньше 
+'''
+listX[len(listX)] будет равен listX[3], а у нас нет этого элемента
+
+и компютер будет ругаться: 
+   IndexError: index out of range: 3 
+   
+так как последний элемет это listX[2]
+то есть надо отнять еденицу
+'''
 print(len(listX) - 1) 
 
 print(listX[2])
