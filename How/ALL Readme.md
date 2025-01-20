@@ -2319,32 +2319,52 @@ def draw():
 ----------------------------------------------------
 2. - Котенок, который машет лапой
 - Сохраняем несколько имиджей в лист
--  Меняем вызов имиджа (не на каждом вызове метода draw, а только на каждом трицатом)
--LenaPlay\sketch_10_sketch_Image
-```
-i = 0 
-catImageList = []
+- Меняем вызов имиджа (не на каждом вызове метода draw, а только на каждом трицатом)
+- LenaPlay\sketch_10_cat_hi
 
-def setup():  
-  global catImageList 
-  size(640, 360)  
-  catRight = loadImage("catRight.png") 
+```
+sc = 0
+def setup(): 
+  global catRight, catUp 
+  size(640, 360)
+  catRight = loadImage("catRight.png")  
   catUp = loadImage("catUp.png") 
   
-  catImageList.append(catRight)
-  catImageList.append(catUp)  
-
 def draw():
-   global i
+   global sc, imageName 
    background(255) 
    
-   image(catImageList[i], 50, 150) 
-   
-   if (i == 1 and frameCount%30==0): 
-      i = 0
-   elif(i == 0 and frameCount%30==0): 
-      i = 1 
+   sc = sc + 1  
+   if sc == 1:
+      imageName = catUp
+   elif sc == 30:
+      imageName = catRight
+   elif sc == 60:
+      sc = 0    
+       
+   image(imageName, 50, 150)
 ```
+
+```
+sc = 0
+def setup(): 
+  global catRight, catUp
+  size(640, 360)
+  catRight = loadImage("catRight.png")  
+  catUp = loadImage("catUp.png") 
+  
+def draw():
+   global sc 
+   background(255)
+   
+   sc = sc + 1
+   if sc > 60:
+      sc = 0   
+   elif sc > 30:
+      image(catRight, 50, 150)
+   elif sc > 0:
+      image(catUp, 50, 150)
+```  
 ----------------------------------------------------
 3. - Котенок, который машет лапой. Длинна листа. len(catImageList). 
 - Сохраняем несколько имиджей в лист
@@ -2898,6 +2918,7 @@ print(listX)
 print(listX[0])	
 print(listX[1])	
 print(listX[2])  #последний элемент нащего листа
+print(listX[3])  #а у нас нет этого элемента и компютер будет ругаться: IndexError: index out of range: 3
 
 print(len(listX))#3 а нам надо на еденицу меньше, так как индекс листа начинается с нуля 
 '''
@@ -3003,8 +3024,7 @@ def draw():
     if sc == 18: 
          listX.append(listX[len(listX)-1] + dx)
          listY.append(listY[len(listY)-1] + dy)  
-    if sc == 19:
-        sc = 0  
+         sc = 0  
      
     #рисуем змейку 
     for i in range(0, len(listX)):  
@@ -4220,7 +4240,8 @@ def draw():
 ```  
 -------------------------------------------- 
 4. 
-ТЗ 2. Сделать два проекта, и через for и через while.
+ТЗ 2.1. for
+ Сделать два проекта, и через for и через while.
 Примерно такой узор — в каждом луче примерно такие
 квадрат, треугольник и круг, узор окрашен в разные оттенки
 одного цвета, от центра к краю темнеет(лучше использовать
@@ -4253,7 +4274,8 @@ def draw():
 ```	  
 ---------------------------------------------------
 5.
-ТЗ 2. while: Сделать два проекта, и через for и через while.
+ТЗ 2.2. while
+ while: Сделать два проекта, и через for и через while.
 Примерно такой узор — в каждом луче примерно такие
 квадрат, треугольник и круг, узор окрашен в разные оттенки
 одного цвета, от центра к краю темнеет(лучше использовать
@@ -4289,7 +4311,7 @@ def draw():
 ```
 -------------------------------------------------
 6.
-ТЗ 3.
+ТЗ 3.1. for
 Сделать два проекта, и через for и через while. Этот
 узор(линия-quad-эллипс) должен вращаться, если держать
 одну из клавиш — при нажатии на стрелку вправо крутится в
@@ -4334,7 +4356,7 @@ def draw():
 ```	  
 -------------------------------------------------
 7.
-ТЗ 3.
+ТЗ 3.2. while
 Сделать два проекта, через while. Этот
 узор(линия-quad-эллипс) должен вращаться, если держать
 одну из клавиш — при нажатии на стрелку вправо крутится в
@@ -4381,11 +4403,91 @@ def draw():
       rotate(radians(360/8))
 ```	  
 -------------------------------------------------
-8.
-ТЗ 4. Сделать два проекта, и через for и через while. Тут
+8.  
+
+ТЗ 4.1. while
+ Сделать два проекта, и через for и через while. Тут
 отключены обводки через noStroke(). Каждый кадр проект
 немного увеличивается и поворачивается по часовой стрелке,
 не стирая предыдущий кадр. Получается такая штука: 
+
+```	
+speedGrow = 0
+angle = 0
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+def draw(): 
+ # background(105, 0, 100)
+  global speedGrow, angle
+  translate(300, 200)
+  noStroke()
+  
+  fill(105,55,90)
+  ellipse(0, 0, 25, 25) 
+  
+  fill(105, 0, 100)
+  ellipse(0, 0, 8, 8)  
+  
+  rotate(radians(angle))
+  angle = angle + 0.2
+  
+  i = 0 
+  while i < 13:
+      i = i + 1  
+      speedGrow = speedGrow + 0.01
+      fill(360,55,90)
+      ellipse(-2, -30+speedGrow, 10, 35)
+      
+      fill(180,55,95)
+      rect(-5, 60+speedGrow, 18, 18)
+      
+      fill(65,95,95)
+      rect(-3, 80+speedGrow, 14, 45) 
+      
+      rotate(radians(360/12))
+```		  
+------------------------------------------------- 
+ТЗ 4.2. for
+ Сделать два проекта, и через for и через while. Тут
+отключены обводки через noStroke(). Каждый кадр проект
+немного увеличивается и поворачивается по часовой стрелке,
+не стирая предыдущий кадр. Получается такая штука: 
+
+```	
+speedGrow = 0
+angle = 0
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+def draw(): 
+ # background(105, 0, 100)
+  global speedGrow, angle
+  translate(300, 200)
+  noStroke()
+  
+  fill(105,55,90)
+  ellipse(0, 0, 25, 25) 
+  
+  fill(105, 0, 100)
+  ellipse(0, 0, 8, 8)  
+  
+  rotate(radians(angle))
+  angle = angle + 0.2 
+  
+  for i in range(12):  
+      speedGrow = speedGrow + 0.01
+      fill(360,55,90)
+      ellipse(-2, -30+speedGrow, 10, 35)
+      
+      fill(180,55,95)
+      rect(-5, 60+speedGrow, 18, 18)
+      
+      fill(65,95,95)
+      rect(-3, 80+speedGrow, 14, 45) 
+      
+      rotate(radians(360/12))
+```	 	  
 ------------------------------------------------------------
 9.
 
