@@ -2781,6 +2781,7 @@ def mousePressed():
 ```
 *******************************************************************************************
                                           Lesson 13
+                                          Слайдер
 ******************************************************************************************* 
 1. - Слайдер
 - Определяем расстояние от положения курсора до линии слайдера:
@@ -4248,29 +4249,30 @@ def draw():
 модель HSB)
 
 ``` 
+myColor = 200
 def setup():
     size(600, 400)
     colorMode(HSB, 360, 100, 100)
 def draw():
-  global angle
+  global myColor
   background(255)
   translate(300, 200)
   
-  fill(200,65,95)
+  fill(myColor,65,95)
   ellipse(0, 0, 20, 20)  
    
-  for i in range(8): 
-      
-      fill(200,95,80)  
+  for i in range(16): 
+      myColor = myColor + 1
+      fill(myColor,95,80)  
       rect(-10, -40, 18, 18)
       
-      fill(200,60,60) 
+      fill(myColor,60,60) 
       ellipse(-3, -80, 20, 40)
       
-      fill(200,80,40)  
+      fill(myColor,80,40)  
       triangle(-16, -110, 8, -110,  -3, -150)
       
-      rotate(radians(360/8))
+      rotate(radians(360/16))
 ```	  
 ---------------------------------------------------
 5.
@@ -4492,6 +4494,41 @@ def draw():
 9.
 
 СЗ 1. Свой проект с узором через циклы на выбор
+
+myColor = 0
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+def draw():
+  global myColor
+  background(255)
+  translate(300, 200)
+  
+  fill(myColor,65,95)
+  ellipse(0, 0, 20, 20)  
+  myColor = myColor+ 2 
+  if myColor == 360:
+      myColor = 0 
+   
+  for i in range(12): 
+      
+      fill(myColor,95,80)  
+      rect(-10, -40, 18, 18)
+      
+      fill(myColor,60,60) 
+      ellipse(-3, -80, 30, 30)
+      
+      strokeWeight(2)
+      stroke(myColor,60,60) 
+      line(-3, -100, 20, 60)
+      
+      fill(myColor,80,40)  
+      triangle(-16, -110, 8, -110,  -3, -190)
+      
+      fill(myColor,80,40)
+      ellipse(-40, -140, 20, 20) 
+      
+      rotate(radians(360/12))
 ----------------------------------------------------
 10.
 Дополнительные задания/ Задания для работы
@@ -4500,13 +4537,489 @@ def draw():
 11.
 ТЗ 1. Создай анимацию на основе любого из узоров. Например, чтобы его элементы
 «дышали», увеличиваясь
+
+
+speedGrow = 0
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+def draw():
+  global speedGrow,angle
+  background(255)
+  translate(mouseX, mouseY)
+  
+  fill(200,65,95)
+  ellipse(0, 0, 20, 20)  
+   
+  i = 0 
+  while i < 9:
+      i = i + 1  
+      speedGrow = speedGrow + 0.01
+      fill(200,95,80)  
+      rect(-10, -40+speedGrow, 18, 18)
+      
+      fill(200,60,60) 
+      ellipse(-3, -80+speedGrow, 20, 40)
+      
+      fill(200,80,40)  
+      triangle(-16, -110+speedGrow, 8, -110+speedGrow,  -3, -150+speedGrow)
+      
+      rotate(radians(360/8))  
 --------------------------------------------------------
 12.
 ТЗ 2. Сделай узор, который будет следовать за курсором мыши
+
+
+speedGrow = 0
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+def draw():
+  global speedGrow,angle
+  background(255)
+  translate(mouseX - 100, mouseY -100)
+  
+  fill(200,65,95)
+  ellipse(0, 0, 20, 20)  
+   
+  i = 0 
+  while i < 9:
+      i = i + 1  
+      speedGrow = speedGrow + 0.01
+      fill(200,95,80)  
+      rect(-10, -40+speedGrow, 18, 18)
+      
+      fill(200,60,60) 
+      ellipse(-3, -80+speedGrow, 20, 40)
+      
+      fill(200,80,40)  
+      triangle(-16, -110+speedGrow, 8, -110+speedGrow,  -3, -150+speedGrow)
+      
+      rotate(radians(360/8))  
 -------------------------------------------------
+***********************************************************************************************************************
+***********************************************************************************************************************
+1. проблема
+4_1
+'''
+Этот код должен рисовать вертикальный ряд,
+который движется слева направо, оставляя следы. Но почему-то
+он выдаёт ошибку
+'''
+```
+x = 0
+
+def setup():
+    size(600, 600)
+    rectMode(CENTER)
+    colorMode(HSB, 360, 100, 100)
+    
+def draw():
+    global x
+    
+    for y in 150 200 250 300 350 400 450 500:
+        fill(random(360), 100, 100)
+        rect(x, y, 25, 25)
+    x += 5
+```	
+--------------------------------------------
+1.2. fix: поставить запятые	
+
+```
+x = 0
+
+def setup():
+    size(600, 600)
+    rectMode(CENTER)
+    colorMode(HSB, 360, 100, 100)
+    
+def draw():
+    global x
+    
+    for y in 150, 200, 250, 300, 350, 400, 450, 500:
+        fill(random(360), 100, 100)
+        rect(x, y, 25, 25)
+    x += 5
+```
+----------------------------------------------
+2. проблема
+4.2
+'''
+Программа должна рисовать снежинку —
+х-крест, наложенный на +-крест —
+которая едет.
+Но почему-то одна из линий х-креста
+не показывается. Почему?
+'''
+
+xAll = 300
+myColor = 0
+def setup():
+    size(600, 600)
+    colorMode(HSB, 360, 100, 100)
+def draw():
+    global xAll, myColor
+    background(100)
+    fill(myColor, 100, 100)
+    translate(xAll, 0)
+    translate(300, 300)
+    for x in -200, -100, 0, 100, 200:
+        ellipse(x, 0, 50, 50)
+        
+    for y in -200, -100, 0, 100, 200:
+        ellipse(0, y, 50, 50)
+        
+    for x in -200, -100, 0, 100, 200:
+        ellipse(x, x, 50, 50)
+        
+    for x in -200, -100, 0, 100, 200:
+        ellipse(x, x, 50, 50)
+    
+    xAll -= 1
+    myColor += 1
+    if myColor > 360:
+        myColor = 0
+-------------------------------------------
+2.2. fix - сменить  x на -x в последнем цикле
+
+```
+xAll = 300
+myColor = 0
+def setup():
+    size(600, 600)
+    colorMode(HSB, 360, 100, 100)
+def draw():
+    global xAll, myColor
+    background(100)
+    fill(myColor, 100, 100)
+    translate(xAll, 0)
+    translate(300, 300)
+    for x in -200, -100, 0, 100, 200:
+        ellipse(x, 0, 50, 50)
+        
+    for y in -200, -100, 0, 100, 200:
+        ellipse(0, y, 50, 50)
+        
+    for x in -200, -100, 0, 100, 200:
+        ellipse(x, x, 50, 50)
+        
+    for x in -200, -100, 0, 100, 200:
+        ellipse(x, -x, 50, 50)
+    
+    xAll -= 1
+    myColor += 1
+    if myColor > 360:
+        myColor = 0
+```		
+----------------------------------------
+3. проблема
+4_3
+'''
+Эта программа должна изобразить 3 горизонтальных
+ряда квадратов, у которых меняется цвет.
+Второй ряд ровно под первым, третий ровно
+под вторым.
+Но почему-то показывается только один ряд.
+Как исправить, добавить двя ряда под ним?
+'''
+```
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+    frameRate(1)
+def draw():
+    
+    for x in range(0, 601, 20):
+        fill(random(360), 100, 100)
+        rect(x, 0, 20, 20)
+    for x in range(0, 601, 20):
+        fill(random(360), 100, 100)
+        rect(x, 0, 20, 20)
+    for x in range(0, 601, 20):
+        fill(random(360), 100, 100)
+        rect(x, 0, 20, 20)
+    translate(0, 20)
+```	
+-------------------------------------------
+3.2. fix: добавить 20 и 40 в последние два цикла для y
+
+```
+def setup():
+    size(600, 400)
+    colorMode(HSB, 360, 100, 100)
+    frameRate(1)
+def draw():
+    
+    for x in range(0, 601, 20):
+        fill(random(360), 100, 100)
+        rect(x, 0, 20, 20)
+    for x in range(0, 601, 20):
+        fill(random(360), 100, 100)
+        rect(x, 20, 20, 20)
+    for x in range(0, 601, 20):
+        fill(random(360), 100, 100)
+        rect(x, 40, 20, 20)
+    translate(0, 20)
+```	
+----------------------------------------	
+4. проблема
+4_4
+'''
+Эта программа должна изобразить ряд кругов
+
+Круги должны идти от левого верхнего угла 
+до правого нижнего угла. Соседние круги должны
+только касаться друг друга, не накладываясь друг на друга,
+ но вместо этого они лежат друг на друге.
+ 
+Как исправить это?
+'''
+
+```
+def setup():
+    size(360, 360)
+    colorMode(HSB, 360, 100, 100)
+
+def draw():
+    
+    for x in range(20, 340):
+        fill(x, 100, 100)
+        ellipse(x, x, 20, 20)
+```		
+-----------------------------------------------
+5.2 fix - сделать шаг 16
+
+```
+def setup():
+    size(360, 360)
+    colorMode(HSB, 360, 100, 100)
+    ellipseMode(CORNER)
+
+def draw():
+    
+    for x in range(0, 340, 16):
+        fill(x, 100, 100)
+        ellipse(x, x, 20, 20)
+```		
+----------------------------------------------
+5. проблема
+4_5		
+'''
+Эта программа должна рисовать ряд линий слева направо,
+каждая следующая линия всё выше. Но почему-то ничего не рисуется.
+
+Как исправить это?
+'''
+
+```
+def setup():
+    size(800, 600)
+    strokeWeight(3)
+    background(255)
+    colorMode(HSB, 360, 100, 100)
+    
+   
+    translate(0, 500)
+    x = 0
+    y = 0
+    col = 0
+    while x > 800:
+        stroke(col, 100, 100)
+        line(x, 0, x, -y)
+        x = x + 6
+        y = y + 2
+        col = col + 3
+        if col > 359:
+            col = 0
+```			
+------------------------------------------------
+5.2. fix поменять x > 800 на x < 800
+
+```
+def setup():
+    size(800, 600)
+    strokeWeight(3)
+    background(255)
+    colorMode(HSB, 360, 100, 100)
+    
+   
+    translate(0, 500)
+    x = 0
+    y = 0
+    col = 0
+    while x < 800:
+        stroke(col, 100, 100)
+        line(x, 0, x, -y)
+        x = x + 6
+        y = y + 2
+        col = col + 3
+        if col > 359:
+            col = 0
+```			
+-------------------------------------------------
+6. проблема
+4_6
+'''
+Эта программа должна нарисовать мозаику — раскрасить в клеточку
+весь холст, рисуя ряд за рядом квадратики. Но рисуется на холсте только первый
+ряд. Как исправить это? 
+'''
+
+```
+x = 0
+y = 0
+
+def setup():
+    size(800, 600)
+    strokeWeight(3)
+    background(255)
+    colorMode(HSB, 360, 100, 100)
+    
+def draw():   
+    global x, y
+    col = 0
+    while x < 800:
+        fill(random(360), 100, 100)
+        rect(x, y, 20, 20)
+        x = x + 20
+    y = y + 20
+    if y > 600:
+        noLoop()
+```		
+--------------------------------------------------------
+6.2. fix: добавить внешний while 
+убрать глобатьные и поставить x=0 перед внутренним while
+
+```
+def setup():
+    size(800, 600)
+    strokeWeight(3)
+    background(255)
+    colorMode(HSB, 360, 100, 100)
+    noLoop()
+def draw(): 
+    y = 0
+    while y < 600:
+        x = 0
+        while x < 800: 
+            fill(random(360), 100, 100)
+            rect(x, y, 20, 20)
+            x = x + 20 
+        y = y + 20
+        
+    if y > 600:
+        noLoop()
+```		
+------------------------------------------------------
+7.  проблема
+5_7
+'''
+В этом проекте узор должен вращаться вокруг центра,
+но почему-то этого не происходит. Как исправить это?
+'''
+
+```
+angle = 0
+
+def setup():
+    size(600, 400)
+    rectMode(CENTER)
+    
+def draw():
+    global angle
+    
+    background(255)
+    translate(300, 200)
+    rotate(radians(angle))
+    fill(0, 255, 0)
+    ellipse(0, 0, 60, 60)
+    fill(255, 255, 0)
+    for i in range(8):
+        rect(120, 0, 60, 60)
+        rotate(radians(360/8))
+```		
+---------------------------------------------
+7.2 fix: добавить angle = angle + 1
+
+```
+angle = 0
+
+def setup():
+    size(600, 400)
+    rectMode(CENTER)
+    
+def draw():
+    global angle
+    
+    background(255)
+    translate(300, 200)
+    rotate(radians(angle))
+    angle = angle + 1
+    fill(0, 255, 0)
+    ellipse(0, 0, 60, 60)
+    fill(255, 255, 0)
+    for i in range(8):
+        rect(120, 0, 60, 60)
+        rotate(radians(360/8))		
+```   
+        
+    
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+    
+        
+    
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    
+   
+
+
+    
 
 
 
