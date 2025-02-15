@@ -1505,8 +1505,7 @@ def setup():
 def mouseClicked():
     global clrcleX
     if(len(clrcleX) > 0): 
-        clrcleX.remove(clrcleX[0])
-        print(clrcleX)    
+        clrcleX.remove(clrcleX[0]) 
     
 def draw():
     background(155) 
@@ -2364,7 +2363,105 @@ def draw():
       image(catRight, 50, 150)
    elif sc > 0:
       image(catUp, 50, 150)
-```  
+``` 
+
+```
+x = 50
+sc = 0
+showPartyImage = False
+def setup(): 
+  global GigaWalk2, GigaWalk3, hillImage,partyImage
+  size(600, 360)
+  GigaWalk2 = loadImage("Giga walk2.png")  
+  GigaWalk3 = loadImage("Giga walk3.png")
+  hillImage = loadImage("Hill.png")  
+  partyImage = loadImage("Party.png")  
+  
+def draw():
+   global sc, x, showPartyImage 
+   if x > 450:
+      showPartyImage = True 
+      
+   if showPartyImage:   
+      image(partyImage, 0, 0, 600, 360)
+   else:
+      image(hillImage, 0, 0, 600, 360)   
+   
+   sc = sc + 1
+   if sc > 60:
+      sc = 0   
+   elif sc > 30:
+      image(GigaWalk2, x, 250, 100, 100)
+   elif sc > 0:
+      image(GigaWalk3, x, 250, 100, 100)
+      
+   x = x + 1
+   if x > 451:
+      x = 50  
+``` 
+LenaPlay\sketch_img_fight
+```
+gigaPositionX = 100
+gigaPositionY = 250 
+sc = 0
+score = 0 
+listX = [120, 200, 320, 400, 550]
+listY = [300, 550, 220, 400, 80]
+
+def setup(): 
+  global GigaWalk2, GigaWalk3, beetle
+  size(600, 360)
+  GigaWalk2 = loadImage("Giga walk2.png")  
+  GigaWalk3 = loadImage("Giga walk3.png") 
+  beetle = loadImage('beetle.png')
+  
+def collideRectRect (x, y, w, h, x2, y2, w2, h2):
+  # работает правильно, даже если rectMode стоит CENTER
+    if (x + w >= x2) and  (x <= x2 + w2) and  (y + h >= y2) and (y <= y2 + h2):
+        return True
+    else:
+        return False  
+  
+def keyPressed():
+    global gigaPositionX, gigaPositionY
+    if keyCode == RIGHT: 
+       gigaPositionX = gigaPositionX + 5
+    if keyCode == LEFT: 
+       gigaPositionX = gigaPositionX - 5
+    if keyCode == UP: 
+       gigaPositionY = gigaPositionY - 5
+    if keyCode == DOWN: 
+       gigaPositionY = gigaPositionY + 5    
+  
+def draw():
+   background(146)
+   global sc, score 
+   
+   textSize(32)
+   text(score, 550, 40)  
+   sc = sc + 1
+   if sc > 60:
+      sc = 0   
+   elif sc > 30:
+      image(GigaWalk2, gigaPositionX, gigaPositionY, 100, 100)
+   elif sc > 0:
+      image(GigaWalk3, gigaPositionX, gigaPositionY, 100, 100)
+ 
+   #падающие жуки
+   for i in range(len(listX)): 
+        image(beetle, listX[i], listY[i], 50, 50)
+        listY[i] = listY[i] + 1
+        if listY[i] == 600:
+           listY[i] = -50
+    
+   #жуки исчезают, если до них дотронуться               
+   for i in range(len(listX)):        
+        if collideRectRect (listX[i], listY[i], 50, 50, gigaPositionX, gigaPositionY, 100, 100):
+           listX.remove(listX[i])
+           listY.remove(listY[i])
+           score =  score + 1
+           break 
+```
 ----------------------------------------------------
 3. - Котенок, который машет лапой. Длинна листа. len(catImageList). 
 - Сохраняем несколько имиджей в лист
@@ -2836,17 +2933,19 @@ def draw():
 - Убираем первый элемент.
 
 ``` 
-x = [10,11,12]
-y = [5,5,5]
-appleX = 12
-appleY = 10 
-dx = 1 
-dy = 0 
-boxSize = 20  
+boxSize = 20
+listX = [200,220,240]
+listY = [100,100,100] 
+sc = 0
 gameover = False
 
+appleX = 12
+appleY = 10
+
+dx = 1
+dy = 0
 def setup():
-    size(600,600) 
+    size(600,600)
     
 def keyPressed():
     global dx, dy
@@ -2861,55 +2960,61 @@ def keyPressed():
        dy = 0    
     elif keyCode == DOWN: 
        dx = 0
-       dy = 1  
+       dy = 1   
     
-def draw():
+def draw(): 
     background(255)
-    global appleX, appleY, gameover 
+    global sc, appleX, appleY, gameover 
     
-    for i in range(0, width/boxSize):
-      line(i*boxSize, 0, i*boxSize, height)
-    
-    for i in range(0, height/boxSize):
-      line(0, i*boxSize, width, i*boxSize )
-     
-    for i in range(0, len(x)):  
-        fill (0,255,0) 
-        rect(x[i]*boxSize, y[i]*boxSize, boxSize, boxSize);
-        
-    fill(255,0,0);
-    rect(appleX*boxSize, appleY*boxSize, boxSize, boxSize);  
-   
-    if not gameover:
-        if(frameCount%18==0): 
-            x.append(x[len(x)-1] + dx)
-            y.append(y[len(y)-1] + dy)
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            rect(x,y,20,20)
             
-            if x[len(x)-1] < 0 or x[len(x)-1] > width/boxSize or y[len(x)-1] < 0 or y[len(x)-1] > height/boxSize:
-                gameover = True 
-                        
-            for i in range(0, len(x)-2): 
-                if(x[len(x)-1] == x[i] and  y[len(y)-1] == y[i]):  #если коснется своего тела, то gameover
-                   gameover = True 
+    sc = sc + 1 
+    if not gameover: 
+        if sc == 18: 
+            listX.append(listX[-1] + boxSize*dx)
+            listY.append(listY[-1] + boxSize*dy)
             
-            if x[len(x)-1]==appleX and y[len(x)-1]==appleY:
+            for i in range(0, len(listX)-2): 
+                if(listX[-1] == listX[i] and  listY[-1] == listY[i]):  #если коснется своего тела, то gameover
+                   gameover = True  
+            
+            if listX[-1]==appleX*boxSize and listY[-1]==appleY*boxSize:
                 appleX = int(random(0,width/boxSize))
-                appleY = int(random(0,height/boxSize)) 
-            else:    
-                x.remove(x[0]) # удаляем хвост
-                y.remove(y[0]) # удаляем хвост
+                appleY = int(random(0,height/boxSize))
+            else:
+                listX.remove(listX[0]) # удаляем хвост
+                listY.remove(listY[0]) # удаляем хвост        
+            
+            sc = 0
     else:
+        push()
         fill(0)
         textSize(30)
-        text("GAME OVER", 20, height/2)    
-
+        text("GAME OVER", 20, height/2)
+        pop()              
+            
+    #рисуем змейку 
+    for i in range(0, len(listX)): 
+        push() 
+        fill (0,255,0) 
+        rect(listX[i], listY[i], boxSize, boxSize)
+        pop()
+     
+    #рисуем яблоко 
+    push()      
+    fill(255,0,0);
+    rect(appleX*boxSize, appleY*boxSize, boxSize, boxSize);   
+    pop() 
 ```
 ------------------------------------------------------ 
 2. #находим значение последнего элемента в listX
-```
-boxSize = 20
-listX = [10,11,12]
-listY = [5,5,5]	
+listX[-1]
+ 
+``` 
+listX = [200,220,240]
+listY = [100,100,100] 
 
 def setup():
     size(600,600)
@@ -2918,64 +3023,44 @@ def setup():
 print(listX)	
 print(listX[0])	
 print(listX[1])	
-print(listX[2])  #последний элемент нащего листа
-print(listX[3])  #а у нас нет этого элемента и компютер будет ругаться: IndexError: index out of range: 3
+print(listX[2])   #последний элемент нащего листа
 
-print(len(listX))#3 а нам надо на еденицу меньше, так как индекс листа начинается с нуля 
-'''
-listX[len(listX)] будет равен listX[3], а у нас нет этого элемента
+print(listX[-1])  #последний элемент нащего листа
+print(listX[-2])  #предпоследний элемент нащего листа
 
-и компютер будет ругаться: 
-   IndexError: index out of range: 3 
-   
-так как последний элемет это listX[2]
-то есть надо отнять еденицу
-'''
-print(len(listX) - 1) 
-
-print(listX[2])
-print(listX[len(listX) - 1])
-```
--------------------------------------------------------
-3.   это через занятие - не сегодня
-
-надо добавить в конец листа listX элемен, со значением
-на еденицу больще, чем последний элемен листа
-
-надо добавить в конец листа listY элемен, со значением
-таким же, как последний элемен листа
-```
-boxSize = 20
-listX = [10,11,12]
-listY = [5,5,5]	
+print(listX[3])  #а у нас нет этого элемента и компютер будет ругаться: IndexError: index out of range: 3 
+``` 
+-------------------------------------------------
+3. Добавляем число в конец листа listX.append(240)
+``` 
+listX = [200,220,240]
+listY = [100,100,100]	
 
 def setup():
     size(600,600)
+	
+print(listX)	
+print(listX[0])	
+print(listX[1])	
+print(listX[2])  #последний элемент нащего листа
+print(listX[3])  #а у нас нет этого элемента и компютер будет ругаться: IndexError: index out of range: 3 
 
-#находим значение последнего элемента в listX 
-print(len(listX) - 1) 
-
-print(listX[2])
-print(listX[len(listX) - 1])
-
-#надо добавить в конец листа элемен, со значением
-#на еденицу больще, чем последний элемен листа
-
-print(listX[len(listX) - 1] + 1)
-
-listX.append(listX[len(listX)-1] + 1)
-listY.append(listY[len(listY)-1] + 0)
-
+listX.append(240)
 print(listX)
-print(listY)
-```
+
+listX.append(listX[2])
+print(listX) 
+
+listX.append(listX[-1])
+print(listX) 
+``` 
 -------------------------------------------------
-4. 
-#рисуем змейку
+5. #рисуем змейку
+ 
 ```
 boxSize = 20
-listX = [10,11,12]
-listY = [5,5,5] 
+listX = [200,220,240]
+listY = [100,100,100] 
  
 def setup():
     size(600,600)  
@@ -2985,124 +3070,295 @@ def draw():
     
     for x in range(0,600,20):
         for y in range(0,600,20):
-            rect(x,y,20,20) 
-     
+            rect(x,y,20,20)
+            
     #рисуем змейку 
     for i in range(0, len(listX)): 
         push() 
         fill (0,255,0) 
-        rect(listX[i]*boxSize, listY[i]*boxSize, boxSize, boxSize)
-        pop()
-```		
--------------------------------------------------------
-5. надо добавить в конец листа listX элемен, со значением
-на еденицу больще, чем последний элемен листа
-
-надо добавить в конец листа listY элемен, со значением
-таким же, как последний элемен листа
-
+        rect(listX[i], listY[i], boxSize, boxSize)
+        pop() 
+```
+------------------------
+6. Добавляем в конец листа элемент со значением на размер клетки больше, чем
+последний элемент листа 
+ 
 ```
 boxSize = 20
-listX = [10,11,12]
-listY = [5,5,5]
-dx = 1 
-dy = 0
-
+listX = [200,220,240]
+listY = [100,100,100] 
 sc = 0
+
+dx = 1
+dy = 0
 def setup():
     size(600,600)  
     
 def draw(): 
     background(255)
     global sc
-  
+    
     for x in range(0,600,20):
         for y in range(0,600,20):
-            fill (255)
             rect(x,y,20,20)
-      
+            
     sc = sc + 1 
     if sc == 18: 
-         listX.append(listX[len(listX)-1] + dx)
-         listY.append(listY[len(listY)-1] + dy)  
-         sc = 0  
-     
+         listX.append(listX[-1] + boxSize*dx)
+         listY.append(listY[-1] + boxSize*dy)  
+          
+         sc = 0        
+            
     #рисуем змейку 
-    for i in range(0, len(listX)):  
+    for i in range(0, len(listX)): 
+        push() 
         fill (0,255,0) 
-        rect(listX[i]*boxSize, listY[i]*boxSize, boxSize, boxSize)
-```		
------------------------------------------------------
-6. Сделали на занятии:
-Добавляем в listX значение на еденицу больше, чем значение последнего элемента листа (7+1)
-Добавляем в listY то же значение, что и значение последнего элемента листа (20)
+        rect(listX[i], listY[i], boxSize, boxSize)
+        pop()          	
+```	
+------------------------
+7. Добавляем в конец листа элемент на размер клетки больше, чем
+последний элемент листа 
 
+- удаляем первый элемент листа	
 ```
-listX = [5,6,7]
-listY = [20,20,20]
+boxSize = 20
+listX = [200,220,240]
+listY = [100,100,100] 
 sc = 0
 
+dx = 1
+dy = 0
+def setup():
+    size(600,600)  
+    
+def draw(): 
+    background(255)
+    global sc
+    
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            rect(x,y,20,20)
+            
+    sc = sc + 1 
+    if sc == 18: 
+         listX.append(listX[-1] + boxSize*dx)
+         listY.append(listY[-1] + boxSize*dy) 
+         
+         listX.remove(listX[0])
+         listY.remove(listY[0])
+          
+         sc = 0        
+            
+    #рисуем змейку 
+    for i in range(0, len(listX)): 
+        push() 
+        fill (0,255,0) 
+        rect(listX[i], listY[i], boxSize, boxSize)
+        pop()          	
+```	
+-----------------------------
+8. #рисуем яблоко
+- если касается яблока, то не удаляем хвост
+и змейка становиться больше
+
+```
+boxSize = 20
+listX = [200,220,240]
+listY = [100,100,100] 
+sc = 0
+
+appleX = 12
+appleY = 10
+
+dx = 1
+dy = 0
+def setup():
+    size(600,600)  
+    
+def draw(): 
+    background(255)
+    global sc, appleX, appleY 
+    
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            rect(x,y,20,20)
+            
+    sc = sc + 1 
+    if sc == 18: 
+         listX.append(listX[-1] + boxSize*dx)
+         listY.append(listY[-1] + boxSize*dy) 
+         
+         if listX[-1]==appleX*boxSize and listY[-1]==appleY*boxSize:
+            appleX = int(random(0,width/boxSize))
+            appleY = int(random(0,height/boxSize))
+         else:
+            listX.remove(listX[0])
+            listY.remove(listY[0])        
+          
+         sc = 0        
+            
+    #рисуем змейку 
+    for i in range(0, len(listX)): 
+        push() 
+        fill (0,255,0) 
+        rect(listX[i], listY[i], boxSize, boxSize)
+        pop()
+     
+    #рисуем яблоко 
+    push()      
+    fill(255,0,0);
+    rect(appleX*boxSize, appleY*boxSize, boxSize, boxSize);   
+    pop()                                          
+```
+---------------------
+9. при нажатии кнопок заставляем змейку двигаться в разных направлениях
+```
+boxSize = 20
+listX = [200,220,240]
+listY = [100,100,100] 
+sc = 0
+
+appleX = 12
+appleY = 10
+
+dx = 1
+dy = 0
 def setup():
     size(600,600)
     
-def draw():
-    global sc, listX, listY
-    for x in range(0,600,20):
-        for y in range(0,600,20):
-		    fill(250)
-            rect(x,y,20,20)
-    
-    sc = sc + 1
-    if sc == 18:
-        listX.append(listX[len(listX)-1]+1)
-        listY.append(listY[len(listY)-1]+0) 
-    if sc == 19:
-       sc = 0 
-       
-    for z in range(0,len(listX)): 
-        fill(0,250,0)
-        rect(listX[z]*20,listY[z]*20,20,20)
-```		
------------------------------------------------------
-7. удаляем хвост
-
-```
-boxSize = 20
-x = [10,11,12]
-y = [5,5,5]
-dx = 1 
-dy = 0
-
-sc = 0
-def setup():
-    size(600,600)  
+def keyPressed():
+    global dx, dy
+    if keyCode == LEFT: 
+       dx = -1
+       dy = 0 
+    elif keyCode == UP: 
+       dx = 0
+       dy = -1     
+    elif keyCode == RIGHT: 
+       dx = 1
+       dy = 0    
+    elif keyCode == DOWN: 
+       dx = 0
+       dy = 1   
     
 def draw(): 
     background(255)
-    global sc
-    for i in range(0, 600, boxSize):
-      line(i, 0, i, 600)
+    global sc, appleX, appleY 
     
-    for i in range(0, 600, boxSize):
-      line(0, i, 600, i)
-      
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            rect(x,y,20,20)
+            
     sc = sc + 1 
     if sc == 18: 
-         x.append(x[len(x)-1] + dx)
-         y.append(y[len(y)-1] + dy)
+         listX.append(listX[-1] + boxSize*dx)
+         listY.append(listY[-1] + boxSize*dy) 
          
-         x.remove(x[0]) # удаляем хвост
-         y.remove(y[0]) # удаляем хвост  
-    if sc == 19:
-        sc = 0  
-     
+         if listX[-1]==appleX*boxSize and listY[-1]==appleY*boxSize:
+            appleX = int(random(0,width/boxSize))
+            appleY = int(random(0,height/boxSize))
+         else:
+            listX.remove(listX[0])
+            listY.remove(listY[0])        
+          
+         sc = 0        
+            
     #рисуем змейку 
-    for i in range(0, len(x)):  
+    for i in range(0, len(listX)): 
+        push() 
         fill (0,255,0) 
-        rect(x[i]*boxSize, y[i]*boxSize, boxSize, boxSize)
-```		
+        rect(listX[i], listY[i], boxSize, boxSize)
+        pop()
+     
+    #рисуем яблоко 
+    push()      
+    fill(255,0,0);
+    rect(appleX*boxSize, appleY*boxSize, boxSize, boxSize);   
+    pop()                                             
+``` 
+-----------------------------------------------------
+10. #если коснется своего тела, то gameover
+
+```
+ boxSize = 20
+listX = [200,220,240]
+listY = [100,100,100] 
+sc = 0
+gameover = False
+
+appleX = 12
+appleY = 10
+
+dx = 1
+dy = 0
+def setup():
+    size(600,600)
+    
+def keyPressed():
+    global dx, dy
+    if keyCode == LEFT: 
+       dx = -1
+       dy = 0 
+    elif keyCode == UP: 
+       dx = 0
+       dy = -1     
+    elif keyCode == RIGHT: 
+       dx = 1
+       dy = 0    
+    elif keyCode == DOWN: 
+       dx = 0
+       dy = 1   
+    
+def draw(): 
+    background(255)
+    global sc, appleX, appleY, gameover 
+    
+    for x in range(0,600,20):
+        for y in range(0,600,20):
+            rect(x,y,20,20)
+            
+    sc = sc + 1 
+    if not gameover: 
+        if sc == 18: 
+            listX.append(listX[-1] + boxSize*dx)
+            listY.append(listY[-1] + boxSize*dy)
+            
+            for i in range(0, len(listX)-2): 
+                if(listX[-1] == listX[i] and  listY[-1] == listY[i]):  #если коснется своего тела, то gameover
+                   gameover = True  
+            
+            if listX[-1]==appleX*boxSize and listY[-1]==appleY*boxSize:
+                appleX = int(random(0,width/boxSize))
+                appleY = int(random(0,height/boxSize))
+            else:
+                listX.remove(listX[0]) # удаляем хвост
+                listY.remove(listY[0]) # удаляем хвост        
+            
+            sc = 0
+    else:
+        push()
+        fill(0)
+        textSize(30)
+        text("GAME OVER", 20, height/2)
+        pop()              
+            
+    #рисуем змейку 
+    for i in range(0, len(listX)): 
+        push() 
+        fill (0,255,0) 
+        rect(listX[i], listY[i], boxSize, boxSize)
+        pop()
+     
+    #рисуем яблоко 
+    push()      
+    fill(255,0,0);
+    rect(appleX*boxSize, appleY*boxSize, boxSize, boxSize);   
+    pop() 
+```
+ 	
 ----------------------------------------------------------------		
-8. Таймер:
+9. Таймер:
 метод timer меняет значение глобальной переменной timerValue
 что бы добавить timer() в свой проект, надо добавить глобальную переменную timerValue
 и вызвать timer() в методе draw()
@@ -4186,15 +4442,13 @@ def draw():
 	angle = angle + 1
 ```	
 ------------------------------------------------
-2.
-Задания по теме «Циклы с rotate»
+2. ТЗ 1. for
 
-ТЗ 1. Сделать два проекта, и через for и через while:8 квадратов вокруг
+Сделать два проекта, и через for и через while:8 квадратов вокруг
 центрального круга вот так, не забудьте закрасить круг зелёным, а
 квадраты жёлтым.
 
-```
-angle = 0
+``` 
 def setup():
     size(600, 400)
 def draw():
@@ -4205,16 +4459,15 @@ def draw():
   fill(0,255,0)
   ellipse(0, 0, 20, 20)
   
-  fill(255,255,84)
-  rotate(radians(angle))
+  fill(255,255,84) 
   for i in range(8): 
       rect(-10, -40, 18, 18)
-      rotate(radians(360/8)) 
-  angle = angle + 1
+      rotate(radians(360/8))  
 ```  
 -----------------------------------------------
-3.
-ТЗ 1. Сделать два проекта, и через  while:8 квадратов вокруг
+3. ТЗ 1. while
+
+Сделать два проекта, и через  while:8 квадратов вокруг
 центрального круга вот так, не забудьте закрасить круг зелёным, а
 квадраты жёлтым.
 
@@ -4240,43 +4493,41 @@ def draw():
   angle = angle + 1
 ```  
 -------------------------------------------- 
-4. 
-ТЗ 2.1. for
+4. ТЗ 2.1. for
+
  Сделать два проекта, и через for и через while.
 Примерно такой узор — в каждом луче примерно такие
 квадрат, треугольник и круг, узор окрашен в разные оттенки
 одного цвета, от центра к краю темнеет(лучше использовать
 модель HSB)
 
-``` 
-myColor = 200
+```  
 def setup():
     size(600, 400)
     colorMode(HSB, 360, 100, 100)
-def draw():
-  global myColor
+def draw(): 
   background(255)
   translate(300, 200)
   
-  fill(myColor,65,95)
+  fill(200,65,95)
   ellipse(0, 0, 20, 20)  
    
-  for i in range(16): 
-      myColor = myColor + 1
-      fill(myColor,95,80)  
+  for i in range(12): 
+       
+      fill(200,95,80)  
       rect(-10, -40, 18, 18)
       
-      fill(myColor,60,60) 
+      fill(200,60,60) 
       ellipse(-3, -80, 20, 40)
       
-      fill(myColor,80,40)  
+      fill(200,80,40)  
       triangle(-16, -110, 8, -110,  -3, -150)
       
-      rotate(radians(360/16))
+      rotate(radians(360/12))
 ```	  
 ---------------------------------------------------
-5.
-ТЗ 2.2. while
+5. ТЗ 2.2. while
+
  while: Сделать два проекта, и через for и через while.
 Примерно такой узор — в каждом луче примерно такие
 квадрат, треугольник и круг, узор окрашен в разные оттенки
@@ -4312,8 +4563,8 @@ def draw():
       rotate(radians(360/8))  
 ```
 -------------------------------------------------
-6.
-ТЗ 3.1. for
+6. ТЗ 3.1. for
+
 Сделать два проекта, и через for и через while. Этот
 узор(линия-quad-эллипс) должен вращаться, если держать
 одну из клавиш — при нажатии на стрелку вправо крутится в
@@ -4357,8 +4608,8 @@ def draw():
       rotate(radians(360/8))
 ```	  
 -------------------------------------------------
-7.
-ТЗ 3.2. while
+7. ТЗ 3.2. while
+
 Сделать два проекта, через while. Этот
 узор(линия-quad-эллипс) должен вращаться, если держать
 одну из клавиш — при нажатии на стрелку вправо крутится в
@@ -4405,9 +4656,8 @@ def draw():
       rotate(radians(360/8))
 ```	  
 -------------------------------------------------
-8.  
+8. ТЗ 4.1. while
 
-ТЗ 4.1. while
  Сделать два проекта, и через for и через while. Тут
 отключены обводки через noStroke(). Каждый кадр проект
 немного увеличивается и поворачивается по часовой стрелке,
@@ -4451,6 +4701,7 @@ def draw():
 ```		  
 ------------------------------------------------- 
 ТЗ 4.2. for
+
  Сделать два проекта, и через for и через while. Тут
 отключены обводки через noStroke(). Каждый кадр проект
 немного увеличивается и поворачивается по часовой стрелке,
@@ -4491,9 +4742,9 @@ def draw():
       rotate(radians(360/12))
 ```	 	  
 ------------------------------------------------------------
-9.
+9. СЗ 1. 
 
-СЗ 1. Свой проект с узором через циклы на выбор
+Свой проект с узором через циклы на выбор
 
 ```
 myColor = 0
@@ -4507,7 +4758,7 @@ def draw():
   
   fill(myColor,65,95)
   ellipse(0, 0, 20, 20)  
-  myColor = myColor+ 2 
+  myColor = myColor + 2 
   if myColor == 360:
       myColor = 0 
    
@@ -4536,8 +4787,9 @@ def draw():
 Дополнительные задания/ Задания для работы
 дома
 ------------------------------------------------------
-11.
-ТЗ 1. Создай анимацию на основе любого из узоров. Например, чтобы его элементы
+11. ТЗ 1. 
+
+Создай анимацию на основе любого из узоров. Например, чтобы его элементы
 «дышали», увеличиваясь
 
 ```
@@ -4569,8 +4821,9 @@ def draw():
       rotate(radians(360/8)) 
 ```	  
 --------------------------------------------------------
-12.
-ТЗ 2. Сделай узор, который будет следовать за курсором мыши
+12. ТЗ 2. 
+
+Сделай узор, который будет следовать за курсором мыши
 
 ```
 speedGrow = 0
@@ -4610,6 +4863,7 @@ def draw():
 Этот код должен рисовать вертикальный ряд,
 который движется слева направо, оставляя следы. Но почему-то
 он выдаёт ошибку
+ 
 '''
 ```
 x = 0
@@ -4807,7 +5061,8 @@ def draw():
     for x in range(0, 340, 16):
         fill(x, 100, 100)
         ellipse(x, x, 20, 20)
-```		
+```	
+	
 ----------------------------------------------
 5. проблема
 4_5		
@@ -4967,8 +5222,198 @@ def draw():
     fill(255, 255, 0)
     for i in range(8):
         rect(120, 0, 60, 60)
-        rotate(radians(360/8))		
-```   
+        rotate(radians(360/8))
+		
+```  
+************************************************************************************************************************
+                                                     Массивы
+************************************************************************************************************************
+1. Слайдер цитат. Создай массив цитат и выводи на холст один из элементов
+массива (по индексу). При нажатии на клавиши стрелок увеличивай индекс того
+элемента, который выводишь. Не забудь сделать так, чтобы индекс не выходил за 
+приделы списка.
+
+citatList = [
+ u'Не волнуйтесь, если что-то не работает. Если бы всё работало, вас бы уволили.',
+ u'Болтовня ничего не стоит. Покажите мне код.',
+ u'Вы не можете создавать хорошие программы без хорошей команды, но большинство софтверных команд ведут себя как проблемная семья.',
+ u'Лучшие программисты не чуть-чуть лучше хороших. Они на порядок лучше по любым меркам: концептуальное мышление, скорость, изобретательность и способность находить решения.',
+] 
+x = 0
+def setup():
+    size(1900,300) 
+    
+def mouseClicked():
+    global x
+    if dist(mouseX, mouseY, 65, 70) < 40:
+        x = x+1
+    if dist(mouseX, mouseY, 165, 70) < 40:
+        x = x-1
+    if x == 4:
+        x = 0 
+    if x == -1:
+       x = 3            
+      
+def draw():
+    background(255) 
+	
+    fill(200)
+    rect(50,50,28,40)
+    rect(150,50,28,40)
+	
+    fill(0) 
+    textSize(32)  
+    text(u'↑',55,80)
+    text(u'↓',155,80)
+    
+    textSize(24)   
+    text(citatList[x],10,180)  
+---------------------------------------------	
+
+2. Переключатель.
+На экране список покупок. Один из элементов списка подсвечен желтым цветом.
+Можно менять подсвеченный элемент, переходя на следующий или предыдущий.
+
+```
+buyList = [
+ u'Бананы',
+ u'Шоколадку 3 шт',
+ u'Кефир',
+ u'Тофу',
+] 
+x = 0 
+def setup():
+    size(600,600) 
+    
+def mouseClicked():
+    global x
+    if dist(mouseX, mouseY, 65, 70) < 40:
+        x = x-1
+    if dist(mouseX, mouseY, 165, 70) < 40:
+        x = x+1
+    if x == 4:
+        x = 0 
+    if x == -1:
+       x = 3            
+      
+def draw():
+    background(255)  
+  
+    fill(200)
+    rect(50,50,28,40)
+    rect(150,50,28,40)
+  
+    fill(0) 
+    textSize(32)  
+    text(u'↑',55,80)
+    text(u'↓',155,80)
+    
+    textSize(24)
+    y = 180 
+    for i in range(len(buyList)): 
+       if i == x:
+          push()
+          fill(255, 255, 50)
+          text(buyList[i],10,y) 
+          pop() 
+       else:
+          fill(146)
+          text(buyList[i],10,y)
+       y = y + 50 
+           
+```
+-------------------------------------------
+3. Создай список цветов или размеров и вывести ряд фигур этих цветов и размеров.
+
+```
+circleSizeList = [10, 25, 150, 35] 
+x = 0 
+def setup():
+    size(600,600)  
+      
+def draw():
+    background(255)  
+    for circleSize in circleSizeList:
+       noFill()
+       ellipse(200, 200, circleSize, circleSize)
+```
+------------------------------------------------
+4. Снег.
+Сверху падают белые снежинки-точки. Для этого придется создать два списка координат
+и менять их. Когда снежинка долетает до нижнего края холста, она снова оказывается 
+наверху и снова начинает падать.
+
+```
+x = [0,24,36,49,75,81,100,143,200,220,243,298,331,360,401,461,489,523,570]
+y = [0,40,10, 43,32,80,54,0,40,10, 43,11,23,21,54,45,67,0,40,10, 43,11,23]
+speed = [1,1.7,1,1.5,1,0.6,1,1.1,1,0.8,1,2,1,1.3,1,1.4,2.1,1,3,2,1.3,1.2]
+
+def setup():
+    size(600,400)
+    stroke(255)
+    strokeWeight(4)
+    background(0)
+    
+def draw():
+    background(0)
+    for index in range(len(x)):    
+        point(x[index],y[index])
+        y[index] += speed[index]
+        if y[index]>400:
+            y[index] = 0
+```	
+	   
+---------------------------------------
+5. То же самое, только снежинки падают с разными скоростями и под углом,
+"под воздействием ветра".
+
+```
+x = [0,24,36,49,75,81,100,143,200,220,243,298,331,360,401,461,489,523,570]
+y = [0,40,10, 43,32,80,54,0,40,10, 43,11,23,21,54,45,67,0,40,10, 43,11,23]
+speed = [1,1.7,1,1.5,1,0.6,1,1.1,1,0.8,1,2,1,1.3,1,1.4,2.1,1,3,2,1.3,1.2]
+
+def setup():
+    size(600,400)
+    stroke(255)
+    strokeWeight(4)
+    background(0)
+    
+def draw():
+    background(0)
+    for index in range(len(x)):    
+        point(x[index],y[index])
+        y[index] += speed[index]
+        x[index] +=0.5
+        if y[index]>400:
+            y[index] = 0
+            #print(y[index])
+        if x[index]>600:
+            x[index] = 0 
+            print(x[index])  
+```
+-----------------------------------------
+6. Придумай свой проект с использованием массивов.
+   жуки
+
+LenaPlay\sketch_bittles\sketch_bittles.pyde
+```
+listX = [120, 200, 320, 400, 550]
+listY = [300, 550, 220, 400, 80]
+
+def setup():
+    global beetle 
+    size(600,600) 
+    beetle = loadImage('beetle.png') 
+def draw():
+    background(146)
+    for i in range(len(listX)): 
+        image(beetle, listX[i], listY[i],50, 50)
+        listY[i] = listY[i] + 1
+        if listY[i] == 600:
+           listY[i] = -50
+```			
+    
+ 
         
     
 
