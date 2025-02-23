@@ -5232,7 +5232,7 @@ def draw():
 массива (по индексу). При нажатии на клавиши стрелок увеличивай индекс того
 элемента, который выводишь. Не забудь сделать так, чтобы индекс не выходил за 
 приделы списка.
-
+```
 citatList = [
  u'Не волнуйтесь, если что-то не работает. Если бы всё работало, вас бы уволили.',
  u'Болтовня ничего не стоит. Покажите мне код.',
@@ -5267,10 +5267,48 @@ def draw():
     text(u'↓',155,80)
     
     textSize(24)   
-    text(citatList[x],10,180)  
----------------------------------------------	
+    text(citatList[x],10,180) 
+```	
+---------------------------------------------
+2. Алиса
+Слайдер цитат. Создай массив цитат и выводи на холст один из элементов
+массива (по индексу). При нажатии на клавиши стрелок увеличивай индекс того
+элемента, который выводишь. Не забудь сделать так, чтобы индекс не выходил за 
+приделы списка.
 
-2. Переключатель.
+```
+x = 0
+cl = 20
+cl2 = 20
+col = 0
+ts = 25
+citati = ['H','E ','L','P', '_', 'M', 'E', 'I WILL KILL YOU']
+def setup():
+    size(200,200)
+    background(255)
+def draw():
+    global x, citati, cl, col, cl2
+    fill(col,0,0)
+    text(citati[x],cl,cl2)
+
+def keyReleased():
+    global x, cl, col, cl2, ts
+    
+    if key == ' ':
+        x = x + 1
+        cl = cl + 10
+        if x == 7:
+            background(0)
+            col = 255
+            cl = 10
+            cl2 = 100
+            textSize(ts)
+            ts = ts + 5
+            if ts >= 30:
+                ts = 25
+```
+--------------------------------------------- 
+3. Переключатель.
 На экране список покупок. Один из элементов списка подсвечен желтым цветом.
 Можно менять подсвеченный элемент, переходя на следующий или предыдущий.
 
@@ -5323,7 +5361,7 @@ def draw():
            
 ```
 -------------------------------------------
-3. Создай список цветов или размеров и вывести ряд фигур этих цветов и размеров.
+4. Создай список цветов или размеров и вывести ряд фигур этих цветов и размеров.
 
 ```
 circleSizeList = [10, 25, 150, 35] 
@@ -5338,7 +5376,7 @@ def draw():
        ellipse(200, 200, circleSize, circleSize)
 ```
 ------------------------------------------------
-4. Снег.
+5. Снег.
 Сверху падают белые снежинки-точки. Для этого придется создать два списка координат
 и менять их. Когда снежинка долетает до нижнего края холста, она снова оказывается 
 наверху и снова начинает падать.
@@ -5361,10 +5399,9 @@ def draw():
         y[index] += speed[index]
         if y[index]>400:
             y[index] = 0
-```	
-	   
+```	 
 ---------------------------------------
-5. То же самое, только снежинки падают с разными скоростями и под углом,
+6. То же самое, только снежинки падают с разными скоростями и под углом,
 "под воздействием ветра".
 
 ```
@@ -5392,7 +5429,7 @@ def draw():
             print(x[index])  
 ```
 -----------------------------------------
-6. Придумай свой проект с использованием массивов.
+7. Придумай свой проект с использованием массивов.
    жуки
 
 LenaPlay\sketch_bittles\sketch_bittles.pyde
@@ -5411,8 +5448,457 @@ def draw():
         listY[i] = listY[i] + 1
         if listY[i] == 600:
            listY[i] = -50
-```			
+```	 
+-------------------------------------------------
+8.
+Дополнительные задания/для самостоятельной
+работы
+1) Попробуй создать список фигур, например, [“эллипс”, “круг”, “квадрат”, “эллипс”,
+“эллипс”], и потом запустить по этому списку цикл for. Если текущий элемент эллипс —
+пусть он рисует эллипс, если треугольник — треугольник и т.д. Так должен получиться
+ряд фигур. Теперь пробуй менять фигуры в списке и смотри, что получится.
+
+```
+citatList = [ u'Круг', u'Квадрат',u'Эллипс',u'Эллипс']
+  
+x = 0
+def setup():
+    size(600,400) 
     
+def mouseClicked():
+    global x
+    if dist(mouseX, mouseY, 65, 70) < 40:
+        x = x+1
+    if dist(mouseX, mouseY, 165, 70) < 40:
+        x = x-1
+    if x == 4:
+        x = 0 
+    if x == -1:
+       x = 3            
+      
+def draw():
+    background(255)
+     
+    fill(200)
+    rect(50,50,28,40)
+    rect(150,50,28,40)
+  
+    fill(0) 
+    textSize(32)  
+    text(u'↑',55,80)
+    text(u'↓',155,80)
+    
+    textSize(24)   
+    text(citatList[x],10,180)
+    
+    if citatList[x] == u'Круг':
+        ellipse(50, 300, 50, 50)
+        
+    elif citatList[x] == u'Эллипс':
+        ellipse(50, 300, 90, 50)
+        
+    elif citatList[x] == u'Квадрат':
+        rect(50, 300, 50, 50)  
+```
+--------------------------------------------------
+9. 
+2) «Гуляющий эллипс». Есть ряд из фигур, квадратов и треугольников. По нему от
+конца к началу путешествует круг, перемещаясь на одну позицию за кадр. Когда он
+переходит на новое место, он меняется местами с той фигурой, чьё место в итоге
+занимает.
+```
+citatList = [ u'Круг', u'Квадрат',u'Эллипс',u'Эллипс', u'Квадрат', u'Эллипс',]
+tempLast = citatList[len(citatList) - 1] 
+x = 0 
+def setup():
+    size(600,400) 
+    frameRate(1)
+  
+def draw():
+    global x 
+    background(255)
+    ellipseMode(CORNER) 
+    
+    if x > 0 and x < len(citatList):
+        if citatList[x - 1] == u'Круг':
+            temp = citatList[x]
+            citatList[x] = citatList[x - 1]
+            citatList[x - 1] = temp   
+ 
+    for i in range(len(citatList)):  
+        if citatList[i] == u'Круг':
+            push()
+            fill(220, 36, 36)
+            ellipse(i*100, 300, 50, 50)
+            pop()
+            
+        elif citatList[i] == u'Эллипс':
+            ellipse(i*100, 300, 90, 50)
+            
+        elif citatList[i] == u'Квадрат':
+            rect(i*100, 300, 50, 50)
+                
+    if x < len(citatList) - 1:
+        x = x + 1 
+    elif x == len(citatList) - 1: 
+        citatList[len(citatList) - 1] = tempLast
+        citatList[0] = u'Круг'
+        x = 0  
+```
+-----------------------------------------------------
+10.
+3) «Поле чудес». Есть загаданное слово , список букв. На холсте отображается ряд
+синих квадратов. Если нажать клавишу буквы, которая есть в списке, то буква
+начинает отображаться. На своём месте. Например, загадано слово «ворота».
+Изначально ряд пустых квадратов на холсте
+При нажатии на букву «о» на холсте отобразится
+
+```
+guessLettersList = []  
+def setup():
+    size(600,400)  
+    
+def keyPressed():  
+    guessLettersList.append(key)    
+    
+def draw(): 
+    background(255)  
+    textSize(34) 
+    fill(255, 30, 30)  
+    
+    for i in range(len(hiddenWord)):
+       push()
+       fill(146) 
+       rect(30*i, 27, 30, 30)
+       pop()
+       for guessLetter in guessLettersList:
+           if guessLetter == hiddenWord[i]: 
+               text(hiddenWord[i], i*30+5, 50)
+```			   
+--------------------------------------------------
+LenaPlay\sketch_platformer2
+
+```
+playerX = 50
+playerY = 250
+velocityX = 0
+velocityY = 0
+onGround = False
+getSward = False
+
+def setup():
+    global breezeNoSward, breeze, sward, getSward
+    size(600, 400) 
+    breezeNoSward = loadImage('breezeNoSward.png')
+    breeze = loadImage('breeze.png')
+    sward = loadImage('sward.png')
+
+def draw():
+    global onGround, playerX, playerY, velocityX, velocityY, getSward 
+    background(135, 206, 235)  # Голубое небо
+    
+    push()
+    fill(200, 130, 10)
+    noStroke()
+    rect(0, 380, 600, 20)
+    pop()
+
+    # Гравитация
+    if not onGround:
+        velocityY += 0.5
+    
+    # Движение 
+    playerX += velocityX
+    playerY += velocityY
+
+    # Пол (простая платформа)
+    groundY = height - 140
+    if playerY >= groundY:
+        playerY = groundY
+        velocityY = 0
+        onGround = True
+    else:
+        onGround = False
+
+    # Рисуем игрока
+    fill(255, 0, 0) 
+    if getSward: 
+       image(breeze,  playerX, playerY, 81, 135)
+    else:
+       image(breezeNoSward,  playerX, playerY, 81, 135) 
+    
+    # Рисуем платформу
+    fill(0, 255, 0)
+    rect(350, 300, 200, 10)  # Пример платформы 
+    if not getSward:
+        image(sward, 400, 280, 106, 30)
+      
+    
+    # Проверка столкновения с платформой
+    if (350 < playerX < 500 and playerY + 81 >= 250 and velocityY > 0):
+        playerY = 250 - 81
+        velocityY = 0
+        onGround = True
+        getSward = True
+
+def keyPressed():
+    global onGround, velocityX, velocityY
+    if key == ' ' and onGround:  # Прыжок по пробелу
+        velocityY = -15
+        onGround = False
+    if keyCode == LEFT:  # Движение влево
+        velocityX = -3
+    if keyCode == RIGHT:  # Движение вправо
+        velocityX = 3
+
+def keyReleased():
+    global velocityX
+    if keyCode in (LEFT, RIGHT):
+        velocityX = 0
+```
+******************************************************************************************************************
+******************************************************************************************************************
+11.
+Задания по теме «Добавляем элементы списка»
+1) При нажатии левой кнопки мыши на месте курсора появляется точка. Толщину
+штриха можно задать 5-20. При нажатии на правую клавишу мыши последняя в
+списках точка удаляется. Делается через два списка (для первой координаты и для
+второй)
+2) При нажатии левой кнопки мыши на месте курсора появляется вращающийся
+узорчик. Угол поворота всех узорчиков одинаковый. При нажатии левой кнопки мыши
+последний элемент удаляется
+3) То же самое, только угол поворота у каждого узорчика разный
+4) Список дел. На холсте две текстовые области — в одной отображается вводимое
+поле ввода текста, в другом список дел. При нажимании клавиш клавиатуры символ с
+клавиши добавляется в конец текста. При нажатии на enter или специальную кнопку на
+холсте текст из вводимого поля добавляется в список дел и выводится
+5) Тот же список дел, только теперь в поле ввода вводится индекс элемента, а кнопка
+и клавиша delete удаляют из списка элемент по индексу. Получилось? А как насчёт
+того, чтобы вводить не индекс, а номер?
+6) Соедини 4 и 5 в один проект
+Команды и т.д.
+tasks= [“побрить руку”,”скукожиться”,”купить поп-сокет”] — список дел(строк)
+len(tasks) — количество элементов списка
+tasks.append(“выкинуть телек”) — добавить элемент в конец списка
+del tasks[0] — удалить начальный элемент списка
+del tasks[len(tasks)-1] — удалить последний элемент списка
+text(tasks[1],200,300) — вывести ВТОРОЙ элемент (индекс идёт с нуля) списка в 200
+от левого края и 300 от правого края
+tasks[2] = “флексануть” — теперь элемент с индексом 2 равен “флексануть”
+for element in tasks: — для каждого элемента списка...
+for step in range(9): — повторить 9 раз
+myText = myText + “1” — прибавить к тексту в переменной «1» справа
+keyPressed — нажата ли клавиша? Содержит True или False
+---------------------------------------------------------------
+Дополнительные задания/Задания для
+самостоятельной работы дома
+1) Список дел с возможностью удалить любую задачу по индексу. Потребуются
+дополнительные кнопка и поле ввода
+2) Холст ездит вправо-влево с помощью translate(). При нажатии мыши на холст
+добавляется вращающийся эллипс, при этом именно там, где нажата мышь. Для этого
+требуется учитывать сдвиг, добавляя или отнимая его к элементу списка
+3) Игра. С верхнего края к нижнему спускается ряд (или несколько) фигур-агрессоров.
+Снизу вправо-влево бегает персонаж и при нажатии на пробел стреляет вверх
+снарядом (эллипсом). При касании снаряда и агрессора они оба уничтожаются. Если
+уничтожить всех агрессоров — победа и остановка игры. Если агрессор касается
+нижнего края — проигрыш и остановка игры. Проверка касания проводится в цикле
+4) «Арканоид» — классическая игра, понг с кирпичиками. Лучше найти в интернете
+видео и посмотреть, после чего попробовать сделать.
+5) График датчика. У тебя есть датчик, который посылает показания (генерируй их
+случайно), которые записываются в список и строится график. Посмотри в интернете
+график загрузки процессора для примера. Да, когда график заполняет весь холст, при
+каждом поступлении нового показания самое старое (первое в списке) удаляется, так 
+как всё равно не влезает.
+********************************************************************************************************************
+                                                    Lesson 15
+                                                    class
+********************************************************************************************************************		
+1.1.
+```
+class Ball:
+    def __init__(self, x, y, radius, x_speed, y_speed, col):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.x_speed = x_speed
+        self.y_speed = y_speed
+        self.col = col
+
+    def move(self):
+        self.x += self.x_speed
+        self.y += self.y_speed
+
+        # Bounce off walls
+        if self.x - self.radius < 0 or self.x + self.radius > width:
+            self.x_speed *= -1
+        if self.y - self.radius < 0 or self.y + self.radius > height:
+            self.y_speed *= -1
+
+    def display(self):
+        fill(self.col)
+        ellipse(self.x, self.y, self.radius * 2, self.radius * 2)
+
+
+# Global list to store balls
+balls = []
+
+def setup():
+    size(600, 400)
+    for _ in range(5):
+        balls.append(Ball(random(width), random(height), 20, random(-3, 3), random(-3, 3), color(random(255), random(255), random(255))))
+
+def draw():
+    background(0)
+    for ball in balls:
+        ball.move()
+        ball.display()
+```		
+---------------------------------------------------------- 
+LenaPlay\sketch_class_Ball\ball.py
+
+```
+class Ball:
+    def __init__(self, x, y, radius, x_speed, y_speed, col):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.x_speed = x_speed
+        self.y_speed = y_speed
+        self.col = col
+
+    def move(self):
+        self.x += self.x_speed
+        self.y += self.y_speed
+
+        # Bounce off walls
+        if self.x - self.radius < 0 or self.x + self.radius > width:
+            self.x_speed *= -1
+        if self.y - self.radius < 0 or self.y + self.radius > height:
+            self.y_speed *= -1
+
+    def display(self):
+        fill(self.col)
+        ellipse(self.x, self.y, self.radius * 2, self.radius * 2)
+```		
+--------------------------------------
+1.3.
+LenaPlay\sketch_class_Ball\sketch_class_Ball.pyde
+```
+from ball import Ball 
+
+# Global list to store balls
+balls = []
+
+def setup():
+    size(600, 400)
+    for _ in range(5):
+        balls.append(Ball(random(width), random(height), 20, random(-3, 3), random(-3, 3), color(random(255), random(255), random(255))))
+
+def draw():
+    background(0)
+    for ball in balls:
+        ball.move()
+        ball.display()
+```		
+--------------------------------------------------		
+2.1.
+
+```
+class Snowman:
+    def __init__(self, x, y, size):
+        self.x = x
+        self.y = y
+        self.size = size
+
+    def display(self):
+        fill(255)
+        stroke(0)
+        # Нижний шар
+        ellipse(self.x, self.y, self.size * 2, self.size * 2)
+        # Средний шар
+        ellipse(self.x, self.y - self.size * 1.5, self.size * 1.5, self.size * 1.5)
+        # Верхний шар (голова)
+        ellipse(self.x, self.y - self.size * 3, self.size, self.size)
+
+        # Глаза
+        fill(0)
+        ellipse(self.x - self.size * 0.2, self.y - self.size * 3.2, self.size * 0.2, self.size * 0.2)
+        ellipse(self.x + self.size * 0.2, self.y - self.size * 3.2, self.size * 0.2, self.size * 0.2)
+
+        # Нос
+        fill(255, 165, 0)
+        triangle(self.x, self.y - self.size * 3, self.x + self.size * 0.4, self.y - self.size * 3.1, self.x, self.y - self.size * 2.8)
+
+        # Руки
+        stroke(139, 69, 19)
+        line(self.x - self.size, self.y - self.size * 2, self.x - self.size * 1.5, self.y - self.size * 2.5)
+        line(self.x + self.size, self.y - self.size * 2, self.x + self.size * 1.5, self.y - self.size * 2.5)
+		
+def setup():
+    size(400, 400)
+    noLoop()
+
+def draw():
+    background(135, 206, 235)  # Голубое небо
+    snowman = Snowman(200, 300, 50)  # Создаем объект снеговика
+    snowman.display() 
+```	
+---------------------------------------------------
+2.2.
+LenaPlay\sketch_class_snowman\sketch_class_snowman.pyde
+```
+# encoding: utf-8
+class Snowman:
+    def __init__(self, x, y, size):
+        self.x = x
+        self.y = y
+        self.size = size
+
+    def display(self):
+        fill(255)
+        stroke(0)
+        # Нижний шар
+        ellipse(self.x, self.y, self.size * 2, self.size * 2)
+        # Средний шар
+        ellipse(self.x, self.y - self.size * 1.5, self.size * 1.5, self.size * 1.5)
+        # Верхний шар (голова)
+        ellipse(self.x, self.y - self.size * 3, self.size, self.size)
+
+        # Глаза
+        fill(0)
+        ellipse(self.x - self.size * 0.2, self.y - self.size * 3.2, self.size * 0.2, self.size * 0.2)
+        ellipse(self.x + self.size * 0.2, self.y - self.size * 3.2, self.size * 0.2, self.size * 0.2)
+
+        # Нос
+        fill(255, 165, 0)
+        triangle(self.x, self.y - self.size * 3, self.x + self.size * 0.4, self.y - self.size * 3.1, self.x, self.y - self.size * 2.8)
+
+        # Руки
+        stroke(139, 69, 19)
+        line(self.x - self.size, self.y - self.size * 2, self.x - self.size * 1.5, self.y - self.size * 2.5)
+        line(self.x + self.size, self.y - self.size * 2, self.x + self.size * 1.5, self.y - self.size * 2.5) 
+```
+---------------------------------------------------------
+2.3.
+LenaPlay\sketch_class_snowman\snowman.py
+
+``` 
+from snowman import Snowman 
+       
+def setup():
+    size(400, 400)
+    noLoop()
+
+def draw():
+    background(135, 206, 235)  # Голубое небо
+    snowman = Snowman(200, 300, 50)  # Создаем объект снеговика
+    snowman.display() 
+```	
+ 
+
+
+		
+   
  
         
     
